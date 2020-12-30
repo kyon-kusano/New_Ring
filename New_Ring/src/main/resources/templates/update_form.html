@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <th:block th:insert="fragments/base :: head"></th:block>
+  <link rel="stylesheet" href="css/update.css">
+</head>
+<body>
+  <th:block th:insert="fragments/heaer :: header"></th:block>
+  <main>
+    <h1>
+      <span class="page-tytle">職員情報の変更</span>
+    </h1>
+    <form action="#" method="POST">
+      <table>
+        <tr>
+          <th>名前</th>
+          <td><input type="text" name="name" value="*****"></td>
+        </tr>
+        <tr>
+          <th>性別</th>
+          <td>
+            <input type="radio" name="sex" value="0" checked="checked" class="radio">男
+            <input type="radio" name="sex" value="1" class="radio">女
+          </td>
+        </tr>
+        <tr>
+          <th>生年月日</th>
+          <td><input type="date" name="date"></td>
+        </tr>
+        <tr>
+          <th>住所</th>
+          <td><input type="text" name="address" value="*****"></td>
+        </tr>
+        <tr>
+          <th>E-mail</th>
+          <td><input type="email" name="email" value="*****"></td>
+        </tr>
+        <tr>
+          <th>連絡先</th>
+          <td><input type="text" name="tell" value="*****"></td>
+        </tr>
+        <tr>
+          <th>入社日</th>
+          <td><input type="date" name="join_date"></td>
+        </tr>
+        <tr>
+          <th>部署名</th>
+          <td>
+            <select name="department">
+              <option value="0">人事部</option>
+              <option value="1">営業部</option>
+              <option value="2"> IT事業部</option>
+              <option value="3">研修生</option>
+              <option value="4">インターン</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>管理権限</th>
+          <td>
+            <select name="role">
+              <option value="0">管理者</option>
+              <option value="1">職員</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>パスワード</th>
+          <td><input type="text" name="passwprd" value="*****"></td>
+        </tr>
+      </table>
+      <input type="submit" value="登録" class="submit-btn">
+    </form>
+  </main>
+</body>
+</html>

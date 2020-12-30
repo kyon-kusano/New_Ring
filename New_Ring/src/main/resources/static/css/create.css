@@ -1,0 +1,64 @@
+main {
+  width: 60%;
+  margin: 0 auto;
+}
+
+main h1 {
+  padding: 30px 50px;
+}
+
+main h1 .page-tytle {
+  border-bottom: double;
+  border-width: 8px;
+  border-color: blue;
+}
+
+main form {
+  margin: 0 auto;
+  padding: 30px 0;
+  border-radius: 10px;
+  background-color: #FFDBC9;
+  color: #444444;
+}
+
+main form table {
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+main form table tr {
+  height: 40px;
+}
+
+main form table tr th {
+  width: 200px;
+  background-color: #FFAD90;
+}
+
+main form table tr td {
+  width: 500px;
+  background-color: #FFFFFF;
+}
+
+main form table tr td input:not(.radio) {
+  width: 300px;
+}
+
+main form .submit-btn {
+  float: right;
+  margin: 50px 50px 0 50px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  -webkit-box-shadow: 2px 3px #CCCCCC;
+          box-shadow: 2px 3px #CCCCCC;
+  background-color: #77FFFF;
+}
+
+main form .submit-btn:active {
+  position: relative;
+  top: 3px;
+  left: 2px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+/*# sourceMappingURL=create.css.map */
