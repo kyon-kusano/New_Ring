@@ -5,19 +5,51 @@
 </head>
 <body>
 	<th:block th:fragment="header">
-	  <header>
-	    <h1>アプリケーション名</h1>
-	    <!-- <ul>
-	      <li class="employee-name"><h3>【管理者】○○○○　○○○○さん</h3></li>
-	      <li><a href="＃">職員の一覧</a></li>
-	      <li><a href="＃">新規登録</a></li>
-	      <li><a href="＃">ログアウト</a></li>
-	    </ul> -->
-	    <ul>
-	      <li class="employee-name"><h3>○○○○　○○○○さん</h3></li>
-	      <li><a href="＃">ログアウト</a></li>
-	    </ul>
-	  </header>	
+	<header>	  
+		<th:block th:switch="${employee.role}" th:object="${employee}"> 
+<!-- ===============↓↓↓ダミーデータ。バックが完成したら削除↓↓↓================= -->
+			<th:block th:case=*>
+				<h1>New Ring</h1>
+				<ul>
+					<li class="employee-name">
+						<a href="#">
+							<h3>○○○○　○○○○さん</h3>
+						</a>
+					</li>
+					<li><a href="＃">ログアウト</a></li>
+				</ul>
+			</th:block>
+<!-- ===============↑↑↑ダミーデータ。バックが完成したら削除↑↑↑================= -->
+
+<!-- 管理者権限でログインした際のヘッダー -->
+			<th:block th:case="4">
+				<h1>New Ring(管理者)</h1>
+				<ul>
+					<li class="employee-name">
+						<a th:href = "@{/detail/{id}(id=*{id})}">
+							<h3 th:text="*{name}">さん</h3>
+						</a>
+					</li>
+					<li><a th:href="@{/index}">職員の一覧</a></li>
+					<li><a th:href="@{/create}">新規登録</a></li>
+					<li><a th:href="@{/logout}">ログアウト</a></li>
+				</ul>
+			</th:block>
+			
+<!-- 一般権限でログインした際のヘッダー -->
+			<th:block th:case=*>
+				<h1>New Ring</h1>
+				<ul>
+					<li class="employee-name">
+						<a th:href="@{/detail/{id}(id=*{id})}">
+							<h3 th:text="*{name}">さん</h3>
+						</a>
+					</li>
+					<li><a th:href="@{/logout}">ログアウト</a></li>
+				</ul>
+			</th:block>
+		</th:block>
+	</header>	
 	</th:block>
 </body>
 </html>
