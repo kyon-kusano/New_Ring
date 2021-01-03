@@ -9,65 +9,93 @@
   <th:block th:insert="fragments/header :: header"></th:block>
   <main>
     <h1>
-      <span class="page-tytle">職員情報の新規登録</span>
+      <span class="page-tytle">職員情報の登録</span>
     </h1>
-    <form action="#" method="POST">
+    <form th:action="@{/create}" th:object="${employee}" method="post">
       <table>
         <tr>
           <th>名前</th>
-          <td><input type="text" name="name"></td>
+          <td>
+          	<input type="text" th:field="*{name}" th:errorclass="error__input">
+          	<span th:errors="*{name}" class="error__message"></span>
+          </td>
         </tr>
         <tr>
           <th>性別</th>
           <td>
-            <input type="radio" name="sex" value="0" checked="checked" class="radio">男
-            <input type="radio" name="sex" value="1" class="radio">女
+            <input type="radio" th:field="*{sex}" value="0" class="radio">男
+            <input type="radio" th:field="*{sex}" value="1" class="radio">女
+            <input type="radio" th:field="*{sex}" value="2" class="radio">その他
+            <span th:errors="*{radio}" class="error__message"></span>
           </td>
         </tr>
         <tr>
           <th>生年月日</th>
-          <td><input type="date" name="date"></td>
+          <td>
+          	<input type="date" th:field="*{date}" th:errorclass="error__input">
+          	<span th:errors="*{date}" class="error__message"></span>
+          </td>
         </tr>
         <tr>
           <th>住所</th>
-          <td><input type="text" name="address"></td>
+          <td>
+          	<input type="text" th:field="*{address}" th:errorclass="error__input">
+          	<span th:errors="*{address}" class="error__message"></span>	
+          </td>
         </tr>
         <tr>
           <th>E-mail</th>
-          <td><input type="email" name="email"></td>
+          <td>
+          	<input type="email" th:field="*{email}" th:errorclass="error__input">
+          	<span th:errors="*{email}" class="error__message"></span>
+          </td>
         </tr>
         <tr>
           <th>連絡先</th>
-          <td><input type="text" name="tell"></td>
+          <td>
+          	<input type="text" th:field="*{tell}" th:errorclass="error__input">
+          	<span th:errors="*{tell}" class="error__message"></span>
+          </td>
         </tr>
         <tr>
           <th>入社日</th>
-          <td><input type="date" name="join_date"></td>
+          <td>
+          	<input type="date" th:field="*{join_date}" th:errorclass="error__input">
+          	<span th:errors="*{join_date}" class="error__message"></span>
+          </td>
         </tr>
         <tr>
           <th>部署名</th>
           <td>
-            <select name="department">
-              <option value="0">人事部</option>
+			<select th:field="*{department}">
+			  <th:block th:each="department : ${@departmentRepository.findALL()">
+			  	<option th:value="${department.id}" th:text="${department.name}"></option>
+			  </th:block>
+			  
+<!--          <option value="0">人事部</option>
               <option value="1">営業部</option>
               <option value="2"> IT事業部</option>
               <option value="3">研修生</option>
-              <option value="4">インターン</option>
+              <option value="4">インターン</option> -->
+              
             </select>
           </td>
         </tr>
         <tr>
           <th>管理権限</th>
           <td>
-            <select name="role">
+            <select th:field="*{role}">
               <option value="0">管理者</option>
-              <option value="1">職員</option>
+              <option value="1">一　般</option>
             </select>
           </td>
         </tr>
         <tr>
-        <th>パスワード</th>
-          <td><input type="text" name="passwprd"></td>
+          <th>パスワード</th>
+          <td>
+          	<input type="text" th:field="*{password}" th:errorclass="error__input">
+          	<span th:field="*{password}" class=""></span>
+          </td>
         </tr>
       </table>
       <input type="submit" value="登録" class="submit-btn">
