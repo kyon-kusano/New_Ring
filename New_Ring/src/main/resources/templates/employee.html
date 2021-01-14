@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+ <th:block th:insert="fragments/base :: head"></th:block>
+  <link th:href="@{css/employee.css}" rel="stylesheet" type="text/css">
+<title>Insert title here</title>
+</head>
+<body>
+<main>
+　<th:block th:insert="fragments/header :: header"></th:block>
+ 　<form th:action= "@{/employee/{id}(id=${employee.id})}" th:object="${employee}" method = "post" >    
+      <h2>
+        <span class="page-title">職員情報</span>
+      </h2>
+      <table>
+        <tr>
+          <th>職員番号</th>
+          <td th:text="*{id}"></td>
+        </tr>
+        <tr>
+          <th>名前</th>
+          <td th:text="*{name}"></td>
+        </tr>
+        <tr>
+          <th>性別</th>
+          <td th:text="*{sex}"></td>
+        </tr>
+        <tr>
+          <th>生年月日</th>
+          <td th:text="*{birthday}"></td>  
+        </tr>
+        <tr>
+          <th>住所</th>
+          <td th:text="*{address}"></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td th:text="*{email}"></td>
+        </tr>
+        <tr>
+          <th>電話番号</th>
+          <td th:text="*{telephone_number}"></td>
+        </tr> 
+        <tr>
+          <th>入社日</th>
+          <td th:text="*{join_date}"></td>
+        </tr>
+        <tr>
+          <th>部署名</th>
+          <td th:text="*{department_id.name}"></td> 
+          <!-- 2020/1/6 departmentテーブルを削除する可能性あるので暫定的な記述 -->
+        </tr>
+      </table>
+      <div class = "button" align = "center">
+      <!--　管理者or一般社員の条件分岐は後ほど  -->
+        <input type="submit" name = "" value = "変更">
+        <input type="submit" name = "" value = "削除">
+      </div>
+    </form>
+   </main>
+</body>
+</html>

@@ -1,0 +1,48 @@
+main{
+  width:60%;
+  margin: 0 auto;
+}
+
+ main h2{
+    padding: 20px 50px;
+ }
+    .page-title{
+      color:blue;
+      border-bottom: double;
+      border-width: 8px;
+    }
+
+main form{
+  margin: 0 auto;
+  padding: 30px 0;
+  border-radius: 10px;
+}
+ main form  table{
+    margin: 0 auto;
+    margin-bottom:30px;
+    border:solid 1px;
+    border-collapse: collapse;
+
+ }
+
+main form table  tr {
+      height: 40px;
+      border:1px solid;
+}
+main form table th{
+        width: 400px;
+        background-color: #FFFF;
+        border-collapse: collapse;
+
+      }
+
+main form table td{
+        width: 150px;
+        background-color:#77FFFF;
+        text-align:center;
+        }
+      
+input{
+	width:80px;
+ }
+ 
