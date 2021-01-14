@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+ <link th:href="@{css/login.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class = "container">
+     	<div class = "login-form">
+          <h2 class = "login-form_app-name">アプリケーション名</h2>
+          <form th:action="@{/employee/{id}(id=${employee.id})}" th:object="employee" method = "post">
+          	<input class = "login-form__e-mail" type="text" th:field="*{email}" size ="30" th:errorclass="error_input" placeholder="E-mail"><br>
+          	<span th:errors="*{email}" class="error__message"></span><br>
+          	<input class = "login-form__pass" type = "password" th:field="*{password}" size ="30" th:errorclass="error_input" placeholder = "Password"><br>
+          	<span th:errors="*{password}" class="error__message"></span><br>
+          	<input class = "login-form_check" type = "checkbox" name = "" value =""><label>ログイン状態を保持する</label><br>
+            <input type="submit" value="Login" class="login-btn">
+          </form>
+       </div>
+    </div>
+</body>
+</html>

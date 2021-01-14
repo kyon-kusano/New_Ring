@@ -1,0 +1,33 @@
+.container{
+  position: relative;
+  width: 100%;
+  height:100vh;
+  background: -moz-linear-gradient(top,#40e0d0, #FFF);
+  background: -webkit-linear-gradient(top,#40e0d0, #FFF);
+  background: linear-gradient(to bottom,#40e0d0, #FFF);
+ 
+}
+
+.login-form{
+  border: 5px solid #aaa;
+  width: 40%;
+  height: 40%;
+  top: 0;
+  bottom:0;
+  left: 0;
+  right: 0;
+  padding-top:30px;
+  position: absolute;
+  margin: auto;
+  text-align:center;
+  background-color:white;
+  border-radius:10px;
+}
+  input{
+    margin:15px 0;
+  }
+
+  .login-form_submit{
+    width:100px;
+  }
+
