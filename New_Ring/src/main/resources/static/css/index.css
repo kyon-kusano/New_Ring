@@ -4,33 +4,29 @@
 
 .user-index__table-header {
   margin-bottom: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.user-index__table-header__table1 {
   width: 90%;
 }
 
-.user-index__table-content {
+.user-index__contents {
   margin-bottom: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
-.user-index__table-content__table2 {
+.user-index__contents__table-content {
   width: 90%;
 }
 
-.user-index__table-content__update {
+td{
+  text-align: center;
+}
+
+.user-index__contents__update {
   height: 34px;
   margin-left: 15px;
   background-color: white;
 }
 
-.user-index__table-content__delete {
+.user-index__contents__delete {
   height: 34px;
   margin-left: 15px;
   background-color: white;
@@ -38,5 +34,10 @@
 
 .user-index__pagenation {
   list-style: none;
+  text-align:center;
+}
+
+li{
+  display: inline;
 }
 /*# sourceMappingURL=index.css.map */

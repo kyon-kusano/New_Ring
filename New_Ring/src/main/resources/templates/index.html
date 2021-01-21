@@ -10,25 +10,23 @@
 <body>
     <th:block th:insert="fragments/header :: header"></th:block>
     <main class="user-index">
-        <div class="user-index__table-header">
-            <table border="1"  class="user-index__table-header__table1">
-                <tr class="user-index__table-header__table1__tr1">
-                    <th>名前</th>
-                    <th>性別</th>
-                    <th>生年月日</th>
-                    <th>入社日</th>
-                    <th>部署名</th>
-                </tr>
-            </table> 
-        </div>
-        <div class="user-index__table-content">
-            <table border="1" class="user-index__table-content__table2">
-                <tr class="user-index__table-content__table2__tr2" th:each="employee:${employees}" th:object="${employee}">
-                    <td th:text="*{name}"></td>
-                    <td th:text="*{sex}"></td>
-                    <td th:text="*{birthday}"></td>                    
-                    <td th:text="*{join_date}"></td>
-                    <td th:text="*{department_id.name}"></td>
+    	<table border="1" class="user-index__table-header" style="table-layout: fixed;">
+        	<tr class="user-index__table-header__column">
+                <th width="10">名前</th>
+                <th width="5">性別</th>
+                <th width="13">生年月日</th>
+                <th width="13">入社日</th>
+                <th width="10">部署名</th>
+            </tr>
+        </table> 
+        <div class="user-index__contents">
+            <table border="1" class="user-index__contents__table-content" style="table-layout: fixed;">
+                <tr class="user-index__contents__table-content__element" th:each="employee:${employees}" th:object="${employee}">
+                    <td width="10" th:text="*{name}"></td>
+                    <td width="5" th:text="*{sex}"></td>
+                    <td width="13" th:text="*{birthday}"></td>                    
+                    <td width="13" th:text="*{join_date}"></td>
+                    <td width="10" th:text="*{department_id.name}"></td>
                 </tr>
             </table> 
             <form th:href="/update" method="get" >
