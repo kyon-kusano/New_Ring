@@ -1,3 +1,4 @@
+@charset "UTF-8";
 header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -12,8 +13,14 @@ header {
   color: #8B4513;
 }
 
+header img {
+  height: 40px;
+  margin: 20px 15px 20px 0;
+}
+
 header h1 {
   width: 35%;
+  font-family: 'ヒラギノ明朝 ProN','Hiragino Mincho ProN',sans-serif;
 }
 
 header ul {
