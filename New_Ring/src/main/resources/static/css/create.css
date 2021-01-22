@@ -1,24 +1,23 @@
 main {
-  width: 60%;
   margin: 0 auto;
+  height: 89vh;
+  color: #8B4513;
+  background-color: #FFAD90;
 }
 
 main h1 {
-  padding: 30px 50px;
+  padding: 30px 0px 10px 250px;
 }
 
 main h1 .page-tytle {
-  border-bottom: double;
-  border-width: 8px;
-  border-color: blue;
+  border-bottom: solid;
+  border-width: 2px;
 }
 
 main form {
   margin: 0 auto;
   padding: 30px 0;
   border-radius: 10px;
-  background-color: #FFDBC9;
-  color: #444444;
 }
 
 main form table {
@@ -31,27 +30,29 @@ main form table tr {
 }
 
 main form table tr th {
+  text-align: left;
   width: 200px;
   background-color: #FFAD90;
 }
 
 main form table tr td {
   width: 500px;
-  background-color: #FFFFFF;
 }
 
 main form table tr td input:not(.radio) {
-  width: 300px;
+  width: 500px;
 }
 
 main form .submit-btn {
   float: right;
-  margin: 50px 50px 0 50px;
-  padding: 5px 15px;
-  border-radius: 5px;
-  -webkit-box-shadow: 2px 3px #CCCCCC;
-          box-shadow: 2px 3px #CCCCCC;
-  background-color: #77FFFF;
+  margin: 50px 230px 0 50px;
+  padding: 10px 20px;
+  border-radius: 1px;
+  border-color: #FFDBC9;
+  -webkit-box-shadow: 2px 3px #777676;
+          box-shadow: 2px 3px #777676;
+  color: #8B4513;
+  background-color: white;
 }
 
 main form .submit-btn:active {

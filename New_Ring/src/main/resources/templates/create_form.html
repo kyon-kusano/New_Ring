@@ -14,58 +14,58 @@
     <form th:action="@{/create}" th:object="${employee}" method="post">
       <table>
         <tr>
-          <th>名前</th>
+          <th>・名前</th>
           <td>
           	<input type="text" th:field="*{name}" th:errorclass="error__input">
           	<span th:errors="*{name}" class="error__message"></span>
           </td>
         </tr>
         <tr>
-          <th>性別</th>
+          <th>・性別</th>
           <td>
             <input type="radio" th:field="*{sex}" value="0" class="radio">男
             <input type="radio" th:field="*{sex}" value="1" class="radio">女
             <input type="radio" th:field="*{sex}" value="2" class="radio">その他
-            <span th:errors="*{radio}" class="error__message"></span>
+            <span th:errors="*{sex}" class="error__message"></span>
           </td>
         </tr>
         <tr>
-          <th>生年月日</th>
+          <th>・生年月日</th>
           <td>
           	<input type="date" th:field="*{date}" th:errorclass="error__input">
           	<span th:errors="*{date}" class="error__message"></span>
           </td>
         </tr>
         <tr>
-          <th>住所</th>
+          <th>・住所</th>
           <td>
           	<input type="text" th:field="*{address}" th:errorclass="error__input">
           	<span th:errors="*{address}" class="error__message"></span>	
           </td>
         </tr>
         <tr>
-          <th>E-mail</th>
+          <th>・メールアドレス</th>
           <td>
           	<input type="email" th:field="*{email}" th:errorclass="error__input">
           	<span th:errors="*{email}" class="error__message"></span>
           </td>
         </tr>
         <tr>
-          <th>連絡先</th>
+          <th>・連絡先</th>
           <td>
           	<input type="text" th:field="*{tell}" th:errorclass="error__input">
           	<span th:errors="*{tell}" class="error__message"></span>
           </td>
         </tr>
         <tr>
-          <th>入社日</th>
+          <th>・入社日</th>
           <td>
           	<input type="date" th:field="*{join_date}" th:errorclass="error__input">
           	<span th:errors="*{join_date}" class="error__message"></span>
           </td>
         </tr>
         <tr>
-          <th>部署名</th>
+          <th>・部署名</th>
           <td>
 			<select th:field="*{department}">
 			  <th:block th:each="department : ${@departmentRepository.findALL()">
@@ -82,7 +82,7 @@
           </td>
         </tr>
         <tr>
-          <th>管理権限</th>
+          <th>・管理権限</th>
           <td>
             <select th:field="*{role}">
               <option value="0">管理者</option>
