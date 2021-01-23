@@ -1,44 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <meta charset="UTF-8">
 </head>
 <body>
 	<th:block th:fragment="header">
-	<header>	  
-		<th:block th:switch="${employee.role}" th:object="${employee}"> 
-
-<!-- 管理者権限でログインした際のヘッダー -->
-			<th:block th:case="4">
-				<img th:src="@{/images/header_icon.png}">
-				<h1>New Ring(管理者)</h1>
-				<ul>
-					<li class="employee-name">
-						<a th:href = "@{/detail/{id}(id=*{id})}">
-							<h3 th:text="*{name}">さん</h3>
-						</a>
-					</li>
-					<li><a th:href="@{/index}">職員の一覧</a></li>
-					<li><a th:href="@{/create}">新規登録</a></li>
-					<li><a th:href="@{/password}">パスワードの変更</a></li>
-					<li><a th:href="@{/logout}">ログアウト</a></li>
-				</ul>
-			</th:block>
-			
-<!-- 一般権限でログインした際のヘッダー -->
-			<th:block th:case=*>
-				<h1>New Ring</h1>
-				<ul>
-					<li class="employee-name">
-						<a th:href="@{/detail/{id}(id=*{id})}">
-							<h3 th:text="*{name}">さん</h3>
-						</a>
-					</li>
-					<li><a th:href="@{/password}">パスワードの変更</a></li>
-					<li><a th:href="@{/logout}">ログアウト</a></li>
-				</ul>
-			</th:block>
-		</th:block>
+	<header>	
+		<img th:src="@{/images/header_icon.png}">
+		<h1>New Ring</h1>
+		<ul>
+			<li class="employee-name">
+				<a th:href = "@{/top}">
+					<h3>
+						<span  sec:authentication="name"></span>さん
+					</h3>
+				</a>
+			</li>
+			<li><a th:href="@{/index}" sec:authorize="hasRole('ROLE_ADMIN')">職員の一覧</a></li>
+			<li><a th:href="@{/create}" sec:authorize="hasRole('ROLE_ADMIN')">新規登録</a></li>
+			<li><a th:href="@{/password}">パスワードの変更</a></li>
+			<li><a th:href="@{/logout}">ログアウト</a></li>
+		</ul>
 	</header>	
 	</th:block>
 </body>
