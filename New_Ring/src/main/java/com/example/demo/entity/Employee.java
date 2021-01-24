@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,21 +25,26 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.demo.dto.EmployeeRequest;
+
 import lombok.Data;
+
 @Entity
-@Table(name= "employee")
+@Table(name = "employee")
 @Data
 public class Employee implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
-	//権限は一般ユーザ、マネージャ、システム管理者の３種類とする
-	public enum Authority {ROLE_USER, ROLE_ADMIN}
+	// 権限は一般ユーザ、マネージャ、システム管理者の３種類とする
+	public enum Authority {
+		ROLE_USER, ROLE_ADMIN
+	}
 
-	//問１－２ プライマリーキーを設定するアノテーションを記述
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+	// 問１－２ プライマリーキーを設定するアノテーションを記述
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
 	@Column(nullable = false, unique = true)
 	private String username;
@@ -55,7 +60,7 @@ public class Employee implements UserDetails {
 	private Date birthday;
 
 	@Column()
-	private int sex;
+	private String sex;
 
 	@Column()
 	private String department;
@@ -84,9 +89,6 @@ public class Employee implements UserDetails {
 	@Column(nullable = false)
 	private boolean enabled;
 
-
-
-
 	// roleは複数管理できるように、Set<>で定義。
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
@@ -94,49 +96,51 @@ public class Employee implements UserDetails {
 	private Set<Authority> authorities;
 
 	// JPA requirement
-	protected Employee() {}
+	protected Employee() {
+	}
 
-	//コンストラクタ
-		public Employee(String username, String password, String email, Date birthday, int sex, String department, String telephone_Number,
-					   String address, Date join_Date, Date updated_at, Date deleted_at) {
-			this.username = username;
-			this.password = password;
-			this.email = email;
-			this.birthday = birthday;
-			this.sex = sex;
-			this.department = department;
-			this.telephone_Number = telephone_Number;
-			this.address = address;
-			this.join_Date = join_Date;
-			this.updated_at = updated_at;
-			this.deleted_at = deleted_at;
-			this.enabled = true;
-			this.authorities = EnumSet.of(Authority.ROLE_USER);
+	// コンストラクタ
+	public Employee(String username, String password, String email, Date birthday, String sex, String department,
+			String telephone_Number, String address, Date join_Date, Date updated_at, Date deleted_at) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.birthday = birthday;
+		this.sex = sex;
+		this.department = department;
+		this.telephone_Number = telephone_Number;
+		this.address = address;
+		this.join_Date = join_Date;
+		this.updated_at = updated_at;
+		this.deleted_at = deleted_at;
+		this.enabled = true;
+		this.authorities = EnumSet.of(Authority.ROLE_USER);
+	}
+
+	public Employee(EmployeeRequest employeeRequest) {
+		this.enabled = true;
+		this.authorities = EnumSet.of(Authority.ROLE_USER);
+	}
+
+	// 登録時に、日時を自動セットする
+	@PrePersist
+	public void prePersist() {
+		this.created_at = new Date();
+	}
+
+	// admin権限チェック
+	public boolean isAdmin() {
+		return this.authorities.contains(Authority.ROLE_ADMIN);
+	}
+
+	// admin権限セット
+	public void setAdmin(boolean isAdmin) {
+		if (isAdmin) {
+			this.authorities.add(Authority.ROLE_ADMIN);
+		} else {
+			this.authorities.remove(Authority.ROLE_ADMIN);
 		}
-
-
-		//登録時に、日時を自動セットする
-		@PrePersist
-		public void prePersist() {
-			this.created_at = new Date();
-		}
-
-
-
-		//admin権限チェック
-		public boolean isAdmin() {
-			return this.authorities.contains(Authority.ROLE_ADMIN);
-		}
-
-		//admin権限セット
-		public void setAdmin(boolean isAdmin) {
-			if (isAdmin) {
-				this.authorities.add(Authority.ROLE_ADMIN);
-			} else {
-				this.authorities.remove(Authority.ROLE_ADMIN);
-			}
-		}
-
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -146,9 +150,6 @@ public class Employee implements UserDetails {
 		}
 		return authorities;
 	}
-
-	
-
 
 	@Override
 	public boolean isAccountNonExpired() {

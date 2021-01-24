@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <th:block th:insert="fragments/base :: head"></th:block>
-<link th:href="@{/css/update.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/create.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<th:block th:insert="fragments/header :: header"></th:block>
 	<main>
 		<h1>
-			<span class="page-tytle">職員情報の変更</span>
+			<span class="page-tytle">職員情報の登録</span>
 		</h1>
-		<form th:action="@{/edit/{id}(id=${employeeUpdateRequest.id})}" th:object="${employeeUpdateRequest}" method="post">
+		<form th:action="@{/admin/create}" th:object="${employeeRequest}" method="post">
 			<table>
 				<tr>
 					<th>・名前</th>
@@ -21,9 +21,9 @@
 				<tr>
 					<th>・性別</th>
 					<td><span th:each="sex : ${sexes}"> <input type="radio" name="sex"
-							th:value="${sex.value}" th:id="${sex.key}" th:checked="${sex.value}==*{sex}"
-							style="width: 20px;"> <label th:for="${sex.key}" th:text="${sex.value}"></label>
-					</span> <span th:errors="*{sex}" class="error__message"></span></td>
+							th:value="${sex.value}" th:id="${sex.key}" style="width: 20px;"> <label
+							th:for="${sex.key}" th:text="${sex.value}"></label></span><span th:errors="*{sex}"
+						class="error__message"></span></td>
 				</tr>
 				<tr>
 					<th>・生年月日</th>
@@ -51,21 +51,23 @@
 						th:errors="*{join_Date}" class="error__message"></span></td>
 				</tr>
 				<tr>
-					<th>・部署名</th>
+					<th class="cell_title">部署</th>
 					<td><select id="singleSelect" name="department">
 							<option th:each="department : ${departments}" th:value="${department.value}"
-								th:selected="${department.value}==*{department}" th:text="${department.value}"></option>
-					</select><span th:errors="*{department}" class="error__message"></span></td>
-				</tr>
-				<!-- 	<tr>
-					<th>・管理権限</th>
-					<td><select th:field="*{role}">
-							<option value="0">管理者</option>
-							<option value="1">一 般</option>
+								th:text="${department.value}"></option>
 					</select></td>
-				</tr> -->
+				</tr>
+				<!--      <tr>
+          <th>・管理権限</th>
+          <td>
+            <select th:field="*{role}">
+              <option value="0">管理者</option>
+              <option value="1">一　般</option>
+            </select>
+          </td>
+        </tr> -->
 			</table>
-			<input type="submit" value="変更" class="submit-btn">
+			<input type="submit" value="登録" class="btn" name="user"> <input type="submit" value="管理者として登録" class="btn" name="admin">
 		</form>
 	</main>
 </body>

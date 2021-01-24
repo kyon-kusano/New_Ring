@@ -1,24 +1,17 @@
-package com.example.demo.controller;
+package com.example.demo.controller.base;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.entity.Employee;
+import com.example.demo.service.base.CommonService;
+
 @Controller
-public class AccountController {
-
-
-	@Autowired
-	private AccountRepository repository;
-
-	public List<Employee> get() {
-		return (List<Employee>) repository.findAll();
-	}
+public class BaseController extends CommonService {
 
 	@RequestMapping("/")
 	public String index() {
@@ -41,8 +34,15 @@ public class AccountController {
 		return "login";
 	}
 
-	@RequestMapping("/top")
-	public String top() {
+	/** トップページ **/
+	@GetMapping("/top")
+	public String printUser(Model model) {
+		Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String email = loggedEmployee.getEmail();
+		Employee employee = employeeRepository.findByEmail(email);
+
+		model.addAttribute("employee", employee);
 		return "employee";
 	}
+
 }

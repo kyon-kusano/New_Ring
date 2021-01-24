@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>ユーザー情報一覧</title>
+<link href="/css/list.css" rel="stylesheet"></link>
+<meta charset="utf-8" />
+</head>
+<body>
+	<h1>ユーザー情報一覧</h1>
+	<div>
+		<a th:href="@{/admin/create}">新規登録はこちら</a> <a th:href="@{/top}">トップページ</a>
+	</div>
+	<table>
+
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th width="30px">No.</th>
+				<!-- <th>ID</th> -->
+				<!-- <th>権限</th> -->
+				<th width="100px">名前</th>
+				<!-- <th>メールアドレス</th> -->
+				<th width="100px">部署</th>
+				<th width="30px">性別</th>
+				<th width="30px">年齢</th>
+				<!-- <th>電話番号</th> -->
+				<!-- <th>住所</th> -->
+				<th width="100px">入社日</th>
+				<!-- <th>更新日</th>
+				<th>登録日</th>
+				<th>削除日</th> -->
+				<th width="30px"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="employee : ${employees}" th:object="${employee}">
+				<!-- <td class="center no"></td> -->
+				<td class="center" th:text="*{id}"></td>
+				<!-- <td class="center" th:text="*{authorities}"></td>  -->
+				<td class="center" th:text="*{username}"></td>
+				<!-- <td class="center" th:text="*{email}"></td> -->
+				<td class="center" th:text="*{department}"></td>
+				<td class="center" th:text="*{sex}"></td>
+				<td class="center birthday" th:text="*{birthday}"></td>
+				<!-- 				<td class="center" th:text="*{telephone_Number}"></td>
+				<td class="center" th:text="*{address}"></td> -->
+				<td class="center" th:text="${#dates.format(employee.join_Date, 'yyyy年MM月dd日')}"></td>
+				<!-- <td class="center" th:text="${#dates.format(admin.update_Date, 'yyyy/MM/dd')}"></td>
+				<td class="center" th:text="${#dates.format(admin.create_Date, 'yyyy/MM/dd')}"></td>
+				<td class="center" th:text="${#dates.format(admin.delete_Date, 'yyyy/MM/dd')}"></td> -->
+				<td class="center"><a th:href="@{/admin/{id}(id=*{id})}">詳細</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+		<ul>
+			<li style="display: inline;"><span th:if="${page.first}">&lt;&lt;前</span> <a
+				th:if="${!page.first}" th:href="@{/admin/list(page = ${page.number} - 1)}"> &lt;&lt;前 </a></li>
+			<li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+				style="display: inline; margin-left: 10px;"><span th:if="${i} == ${page.number}"
+				th:text="${i + 1}">1</span> <a th:if="${i} != ${page.number}"
+				th:href="@{/admin/list(page = ${i})}"> <span th:text="${i+1}">1</span>
+			</a></li>
+			<li style="display: inline; margin-left: 10px;"><span th:if="${page.last}">次&gt;&gt;</span>
+				<a th:if="${!page.last}" th:href="@{/admin/list(page = (${page.number} + 1))}"> 次&gt;&gt; </a></li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" th:src="@{/js/list.js}"></script>
+</html>

@@ -11,7 +11,7 @@
 		<th:block th:insert="fragments/header :: header"></th:block>
 		<div th:object="${employee}" class="form">
 			<h2>
-				<span class="page-title">マイページ</span>
+				<span class="page-title">職員情報</span>
 			</h2>
 			<table>
 				<tr>
@@ -57,7 +57,8 @@
 				</tr>
 			</table>
 			<div class="button" align="center">
-				<a th:href="@{/edit/{id}(id=*{id})}">編集</a>
+				<!--　管理者or一般社員の条件分岐は後ほど  -->
+				<a th:href="@{/admin/edit/{id}(id=*{id})}">編集</a><a th:href="@{/admin/delete/{id}(id=*{id})}">削除</a><a th:href="@{/admin/password/{id}(id=*{id})}">パスワード変更</a>
 			</div>
 		</div>
 	</main>

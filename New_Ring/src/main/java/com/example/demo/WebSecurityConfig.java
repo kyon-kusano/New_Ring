@@ -11,13 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.example.demo.controller.AccountService;
+import com.example.demo.bean.selectBean;
+import com.example.demo.service.base.BaseService;
 
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements selectBean {
 
 	@Autowired
-	private AccountService userService;
+	private BaseService userService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -44,7 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
 
 		if (userService.findAllList().isEmpty()) {
-			userService.registerAdmin("admin", "secret", "admin@localhost", null, 0, "IT事業部", null, null, null, null, null);
+			userService.registerAdmin("admin", "secret", "admin@localhost", now, "男", "IT事業部", "xxx-xxxx-xxxx", "東京都",
+					now, null, null);
 		}
 	}
 
@@ -57,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		//
 		return new BCryptPasswordEncoder();
 	}
+
 }
