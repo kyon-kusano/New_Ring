@@ -22,7 +22,7 @@ public class AccountController {
 
 	@RequestMapping("/")
 	public String index() {
-		return "redirect:/";
+		return "redirect:/top";
 	}
 
 	@GetMapping("/login")
@@ -43,6 +43,6 @@ public class AccountController {
 
 	@RequestMapping("/top")
 	public String top() {
-		return "/top";
+		return "employee";
 	}
 }

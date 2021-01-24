@@ -37,10 +37,10 @@ public class AccountService implements UserDetailsService {
 
 	// adminを登録するメソッド
 		@Transactional
-		public void registerAdmin(String username, String password, String email, Date birthday, int sex, String department, String telephone_number,
-				   String address, Date join_date, Date updated_at, Date deleted_at) {
-			Employee user = new Employee(username, passwordEncoder.encode(password), email, birthday, sex, department, telephone_number,
-										address, join_date, updated_at, deleted_at);
+		public void registerAdmin(String username, String password, String email, Date birthday, int sex, String department, String telephone_Number,
+				   String address, Date join_Date, Date updated_at, Date deleted_at) {
+			Employee user = new Employee(username, passwordEncoder.encode(password), email, birthday, sex, department, telephone_Number,
+										address, join_Date, updated_at, deleted_at);
 			user.setAdmin(true);
 			repository.save(user);
 		}
