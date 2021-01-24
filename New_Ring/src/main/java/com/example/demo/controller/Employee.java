@@ -24,8 +24,11 @@ import javax.persistence.TemporalType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import lombok.Data;
 @Entity
 @Table(name= "employee")
+@Data
 public class Employee implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -58,14 +61,14 @@ public class Employee implements UserDetails {
 	private String department;
 
 	@Column()
-	private String telephone_number;
+	private String telephone_Number;
 
 	@Column()
 	private String address;
 
 	@Temporal(TemporalType.DATE)
 	@Column()
-	private Date join_date;
+	private Date join_Date;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created_at;
@@ -94,17 +97,17 @@ public class Employee implements UserDetails {
 	protected Employee() {}
 
 	//コンストラクタ
-		public Employee(String username, String password, String email, Date birthday, int sex, String department, String telephone_number,
-					   String address, Date join_date, Date updated_at, Date deleted_at) {
+		public Employee(String username, String password, String email, Date birthday, int sex, String department, String telephone_Number,
+					   String address, Date join_Date, Date updated_at, Date deleted_at) {
 			this.username = username;
 			this.password = password;
 			this.email = email;
 			this.birthday = birthday;
 			this.sex = sex;
 			this.department = department;
-			this.telephone_number = telephone_number;
+			this.telephone_Number = telephone_Number;
 			this.address = address;
-			this.join_date = join_date;
+			this.join_Date = join_Date;
 			this.updated_at = updated_at;
 			this.deleted_at = deleted_at;
 			this.enabled = true;
@@ -144,114 +147,7 @@ public class Employee implements UserDetails {
 		return authorities;
 	}
 
-	@Override
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	@Override
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public int getSex() {
-		return sex;
-	}
-
-	public void setSex(int sex) {
-		this.sex = sex;
-	}
-
-	public String getDepartment() {
-		return department;
-	}
-
-	public void setDepartmentl(String department) {
-		this.department = department;
-	}
-
-	public String getTelephone_Number() {
-		return telephone_number;
-	}
-
-	public void setTelephone_Number(String telephone_number) {
-		this.telephone_number = telephone_number;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Date getJoin_Date() {
-		return join_date;
-	}
-
-	public void setJoin_Date(Date join_date) {
-		this.join_date = join_date;
-	}
-
-	public Date getCreated_At() {
-		return created_at;
-	}
-	public void setCreated_At(Date created_at) {
-		this.created_at = created_at;
-	}
-
-
-	public Date getUpdated_At() {
-		return updated_at;
-	}
-
-	public void setUpdated_At(Date updated_at) {
-		this.updated_at = updated_at;
-	}
-
-	public Date getDeleted_At() {
-		return deleted_at;
-	}
-
-	public void setDeleted_At(Date deleted_at) {
-		this.deleted_at = deleted_at;
-	}
-
-
-	@Override
-	public boolean isEnabled() {
-		return this.enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
+	
 
 
 	@Override

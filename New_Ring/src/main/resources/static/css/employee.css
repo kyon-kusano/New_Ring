@@ -1,48 +1,60 @@
 main{
-  width:60%;
-  margin: 0 auto;
+  /* width:60%; */
+ margin: 0 auto;
+  height: 100vh;
+  color: #8B4513;
+  background-color: #FFAD90;
 }
 
- main h2{
-    padding: 20px 50px;
+ main h1{
+   padding: 30px 0px 10px 250px;
  }
     .page-title{
-      color:blue;
-      border-bottom: double;
-      border-width: 8px;
+      border-bottom: solid;
+  	  border-width: 2px;
     }
 
-main form{
-  margin: 0 auto;
-  padding: 30px 0;
-  border-radius: 10px;
-}
- main form  table{
+
+ main table{
     margin: 0 auto;
-    margin-bottom:30px;
-    border:solid 1px;
-    border-collapse: collapse;
+  /*  width:50%; */
 
  }
 
-main form table  tr {
+main table  tr {
       height: 40px;
-      border:1px solid;
+      text-align: left;
+   
 }
-main form table th{
+main table th{
         width: 400px;
-        background-color: #FFFF;
-        border-collapse: collapse;
+        text-align: left;
+       
 
       }
 
-main form table td{
+main  table td{
         width: 150px;
-        background-color:#77FFFF;
-        text-align:center;
         }
       
-input{
+main button{
 	width:80px;
+	float:right;
+	margin-top:100px;
+	padding: 10px 20px;
+  	border-radius: 1px;
+ 	border-color: #FFDBC9;
+ 	background-color: white;
+ 	color: #8B4513;
  }
+ 
+ main .delete-btn{
+ margin-right:100px;
+ margin-left:40px;
+ background-color:#FF570D;
+ color:white;
+	  
+ }
+ 
+ 
  
