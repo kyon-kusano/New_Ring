@@ -8,9 +8,9 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface selectBean {
+public class selectBean {
 
-	static Map<String, String> getDepartments = Collections.unmodifiableMap(new LinkedHashMap<String, String>() {
+	protected Map<String, String> getDepartments = Collections.unmodifiableMap(new LinkedHashMap<String, String>() {
 		{
 			put("0", "未選択");
 			put("1", "人事部");
@@ -20,13 +20,13 @@ public interface selectBean {
 			put("5", "インターン");
 		}
 	});
-	static Map<String, String> getSex = Collections.unmodifiableMap(new LinkedHashMap<String, String>() {
+	protected Map<String, String> getSex = Collections.unmodifiableMap(new LinkedHashMap<String, String>() {
 		{
 			put("men", "男");
 			put("women", "女");
 		}
 	});
 
-	Date now = new Date();
+	protected Date now = new Date();
 
 }

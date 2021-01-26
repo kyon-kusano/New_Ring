@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.example.demo.validation.Confirm;
+import com.example.demo.model.validation.Confirm;
 
 import lombok.Data;
 

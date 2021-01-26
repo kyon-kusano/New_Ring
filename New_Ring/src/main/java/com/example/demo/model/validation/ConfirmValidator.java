@@ -1,4 +1,4 @@
-package com.example.demo.validation;
+package com.example.demo.model.validation;
 
 import java.util.Objects;
 

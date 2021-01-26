@@ -2,17 +2,28 @@ package com.example.demo.service.admin;
 
 import java.util.Date;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.bean.selectBean;
 import com.example.demo.dto.EmployeeRequest;
 import com.example.demo.dto.EmployeeUpdateRequest;
 import com.example.demo.dto.PasswordRequest;
-import com.example.demo.entity.Employee;
-import com.example.demo.service.base.CommonService;
+import com.example.demo.model.entity.Employee;
+import com.example.demo.service.user.UserService;
 
 @Service
-public class AdminService extends CommonService implements selectBean {
+public class AdminService extends UserService {
+
+	private Pageable pageable;
+
+	/** 従業員情報全権取得(ページネーション) **/
+	public Page<Employee> getAllWord(Pageable pageable) {
+		return employeeRepository.findAll(pageable);
+	}
+
+	/** 従業員情報全権取得(ページネーション)結果の格納 **/
+	public Page<Employee> lisultList = getAllWord(pageable);
 
 	/** 登録画面から受け取った情報を employee にセット **/
 	private Employee createEmployee(EmployeeRequest employeeRequest) {

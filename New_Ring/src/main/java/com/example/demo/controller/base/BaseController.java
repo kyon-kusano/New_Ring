@@ -1,17 +1,29 @@
 package com.example.demo.controller.base;
 
-import org.springframework.security.core.context.SecurityContextHolder;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.entity.Employee;
-import com.example.demo.service.base.CommonService;
+import com.example.demo.bean.selectBean;
+import com.example.demo.dto.EmployeeUpdateRequest;
+import com.example.demo.dto.PasswordRequest;
+import com.example.demo.service.user.UserService;
 
 @Controller
-public class BaseController extends CommonService {
+public class BaseController extends selectBean {
+
+	@Autowired
+	UserService userService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -37,12 +49,59 @@ public class BaseController extends CommonService {
 	/** トップページ **/
 	@GetMapping("/top")
 	public String printUser(Model model) {
-		Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String email = loggedEmployee.getEmail();
-		Employee employee = employeeRepository.findByEmail(email);
-
-		model.addAttribute("employee", employee);
+		model.addAttribute("employee", userService.employee);
 		return "employee";
 	}
 
+	/** ログインユーザ 情報変更画面 **/
+	@GetMapping("/edit/{id}")
+	public String myEdit(Model model, Model stringModel) {
+		stringModel.addAttribute("departments", getDepartments);
+		stringModel.addAttribute("sexes", getSex);
+		model.addAttribute("employeeUpdateRequest", userService.employee);
+		return "update_form";
+	}
+
+	/**
+	 * ログインユーザ 編集処理
+	 **/
+	@PostMapping("/edit/{id}")
+	public String Update(@Validated @ModelAttribute EmployeeUpdateRequest employeeUpdateRequest, BindingResult result,
+			Model model, Model stringModel) {
+
+		if (result.hasErrors()) {
+			stringModel.addAttribute("departments", getDepartments);
+			stringModel.addAttribute("sexes", getSex);
+			return "update_form";
+		}
+		userService.update(employeeUpdateRequest);
+		return "redirect:/top";
+	}
+
+	/**
+	 * パスワード変更画面
+	 */
+	@GetMapping
+	public String updatePass() {
+		return "password_form";
+	}
+
+	/**
+	 * パスワード変更
+	 */
+	@PostMapping
+	public String topupdate(@Validated @ModelAttribute PasswordRequest passwordRequest, BindingResult result,
+			Model model) {
+
+		if (result.hasErrors()) {
+			List<String> errorList = new ArrayList<String>();
+			for (ObjectError error : result.getAllErrors()) {
+				errorList.add(error.getDefaultMessage());
+			}
+			model.addAttribute("validationError", errorList);
+			return "password_form";
+		}
+		userService.updatePassword(passwordRequest);
+		return "redirect:/top";
+	}
 }

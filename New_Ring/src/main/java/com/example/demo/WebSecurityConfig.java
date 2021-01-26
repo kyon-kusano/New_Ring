@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,11 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.example.demo.bean.selectBean;
 import com.example.demo.service.base.BaseService;
 
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements selectBean {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private BaseService userService;
@@ -45,8 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements s
 		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
 
 		if (userService.findAllList().isEmpty()) {
-			userService.registerAdmin("admin", "secret", "admin@localhost", now, "男", "IT事業部", "xxx-xxxx-xxxx", "東京都",
-					now, null, null);
+			userService.registerAdmin("admin", "secret", "admin@localhost", new Date(), "男", "IT事業部", "xxx-xxxx-xxxx",
+					"東京都", new Date(), null, null);
 		}
 	}
 
