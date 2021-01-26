@@ -13,15 +13,6 @@ import com.example.demo.service.base.BaseService;
 @Service
 public class UserService extends BaseService {
 
-	/** ログインユーザの情報取得 **/
-	public Employee getLoggedEmployee() {
-		Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return loggedEmployee;
-	}
-
-	/** 取得結果の格納 **/
-	public Employee employee = getLoggedEmployee();
-
 	/** id に紐づく従業員情報の取得 **/
 	public Employee findById(Long id) {
 		return employeeRepository.findById(id).get();

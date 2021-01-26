@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ import com.example.demo.model.entity.Employee;
 import com.example.demo.service.admin.AdminService;
 
 @Controller
-public class AdminBaseController extends selectBean {
+public class AdminController extends selectBean {
 
 	@Autowired
 	AdminService adminService;
@@ -32,13 +33,16 @@ public class AdminBaseController extends selectBean {
 	/** 従業員一覧画面 **/
 	@RequestMapping("/admin/list")
 	public String getWordList(Model model, Pageable pageable) {
-		model.addAttribute("page", adminService.lisultList);
-		model.addAttribute("employees", adminService.lisultList.getContent());
+
+		Page<Employee> employees = adminService.getAllWord(pageable);
+		model.addAttribute("page", employees);
+		model.addAttribute("employees", employees.getContent());
+
 		return "admin/list";
 	}
 
 	/** 従業員新規登録画面 **/
-	@GetMapping
+	@GetMapping("/admin/create")
 	public String displayAdd(Model model, Model stringModel) {
 		stringModel.addAttribute("departments", getDepartments);
 		stringModel.addAttribute("sexes", getSex);
@@ -50,7 +54,7 @@ public class AdminBaseController extends selectBean {
 	 * 従業員登録処理（一般）
 	 */
 	@PostMapping(value = "/admin/create", params = "user")
-	public String create(@Validated @ModelAttribute EmployeeRequest employeeRequest, BindingResult result, Model model,
+	public String create(@Validated @ModelAttribute EmployeeRequest employeeRequest, BindingResult result,
 			Model stringModel) {
 
 		if (result.hasErrors()) {
@@ -67,7 +71,7 @@ public class AdminBaseController extends selectBean {
 	 */
 	@PostMapping(value = "/admin/create", params = "admin")
 	public String createAdmin(@Validated @ModelAttribute EmployeeRequest employeeRequest, BindingResult result,
-			Model model, Model stringModel) {
+			Model stringModel) {
 
 		if (result.hasErrors()) {
 			stringModel.addAttribute("departments", getDepartments);
@@ -112,7 +116,7 @@ public class AdminBaseController extends selectBean {
 	 */
 	@PostMapping(value = "/admin/edit/{id}", params = "update")
 	public String update(@Validated @ModelAttribute EmployeeUpdateRequest employeeUpdateRequest, BindingResult result,
-			Model model, Model stringModel) {
+			Model stringModel) {
 
 		if (result.hasErrors()) {
 			stringModel.addAttribute("departments", getDepartments);
@@ -128,8 +132,8 @@ public class AdminBaseController extends selectBean {
 	 * 管理者権限追加処理
 	 */
 	@PostMapping(value = "/admin/edit/{id}", params = "addAdmin")
-	public String addAdmin(@Validated @ModelAttribute EmployeeUpdateRequest employeeUpdateRequest, BindingResult result,
-			Model model, Model stringModel) {
+	public String addAdmin(@Validated @ModelAttribute EmployeeUpdateRequest employeeUpdateRequest,
+			BindingResult result) {
 
 		adminService.addAdmin(employeeUpdateRequest);
 		return String.format("redirect:/admin/%d", employeeUpdateRequest.getId());
@@ -140,7 +144,7 @@ public class AdminBaseController extends selectBean {
 	 */
 	@PostMapping(value = "/admin/edit/{id}", params = "removeAdmin")
 	public String removeAdmin(@Validated @ModelAttribute EmployeeUpdateRequest employeeUpdateRequest,
-			BindingResult result, Model model, Model stringModel) {
+			BindingResult result) {
 		adminService.removeAdmin(employeeUpdateRequest);
 		return String.format("redirect:/admin/%d", employeeUpdateRequest.getId());
 	}

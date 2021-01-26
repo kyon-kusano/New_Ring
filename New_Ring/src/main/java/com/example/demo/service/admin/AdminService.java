@@ -1,7 +1,5 @@
 package com.example.demo.service.admin;
 
-import java.util.Date;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,15 +13,10 @@ import com.example.demo.service.user.UserService;
 @Service
 public class AdminService extends UserService {
 
-	private Pageable pageable;
-
 	/** 従業員情報全権取得(ページネーション) **/
 	public Page<Employee> getAllWord(Pageable pageable) {
 		return employeeRepository.findAll(pageable);
 	}
-
-	/** 従業員情報全権取得(ページネーション)結果の格納 **/
-	public Page<Employee> lisultList = getAllWord(pageable);
 
 	/** 登録画面から受け取った情報を employee にセット **/
 	private Employee createEmployee(EmployeeRequest employeeRequest) {
@@ -84,7 +77,7 @@ public class AdminService extends UserService {
 		employee.setTelephone_Number(employeeUpdateRequest.getTelephone_Number());
 		employee.setAddress(employeeUpdateRequest.getAddress());
 		employee.setJoin_Date(employeeUpdateRequest.getJoin_Date());
-		employee.setUpdated_at(new Date());
+		employee.setUpdated_at(now);
 		employee.setAdmin(false);
 		employeeRepository.save(employee);
 	}
@@ -100,7 +93,7 @@ public class AdminService extends UserService {
 		employee.setTelephone_Number(employeeUpdateRequest.getTelephone_Number());
 		employee.setAddress(employeeUpdateRequest.getAddress());
 		employee.setJoin_Date(employeeUpdateRequest.getJoin_Date());
-		employee.setUpdated_at(new Date());
+		employee.setUpdated_at(now);
 		employee.setAdmin(true);
 		employeeRepository.save(employee);
 	}
@@ -116,7 +109,7 @@ public class AdminService extends UserService {
 
 		Employee employee = findById(id);
 		employee.setPassword(passwordEncoder.encode(passwordRequest.getPassword()));
-		employee.setUpdated_at(new Date());
+		employee.setUpdated_at(now);
 		employeeRepository.save(employee);
 	}
 

@@ -19,7 +19,7 @@ import com.example.demo.service.base.BaseService;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private BaseService userService;
+	private BaseService baseService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -43,10 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(baseService).passwordEncoder(passwordEncoder());
 
-		if (userService.findAllList().isEmpty()) {
-			userService.registerAdmin("admin", "secret", "admin@localhost", new Date(), "男", "IT事業部", "xxx-xxxx-xxxx",
+		if (baseService.findAllList().isEmpty()) {
+			baseService.registerAdmin("admin", "secret", "admin@localhost", new Date(), "男", "IT事業部", "xxx-xxxx-xxxx",
 					"東京都", new Date(), null, null);
 		}
 	}

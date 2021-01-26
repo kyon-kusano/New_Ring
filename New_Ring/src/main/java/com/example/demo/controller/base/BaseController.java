@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.bean.selectBean;
 import com.example.demo.dto.EmployeeUpdateRequest;
 import com.example.demo.dto.PasswordRequest;
+import com.example.demo.model.entity.Employee;
 import com.example.demo.service.user.UserService;
 
 @Controller
@@ -49,16 +51,18 @@ public class BaseController extends selectBean {
 	/** トップページ **/
 	@GetMapping("/top")
 	public String printUser(Model model) {
-		model.addAttribute("employee", userService.employee);
+		Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("employee", loggedEmployee);
 		return "employee";
 	}
 
 	/** ログインユーザ 情報変更画面 **/
 	@GetMapping("/edit/{id}")
 	public String myEdit(Model model, Model stringModel) {
+		Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		stringModel.addAttribute("departments", getDepartments);
 		stringModel.addAttribute("sexes", getSex);
-		model.addAttribute("employeeUpdateRequest", userService.employee);
+		model.addAttribute("employeeUpdateRequest", loggedEmployee);
 		return "update_form";
 	}
 
