@@ -10,7 +10,7 @@
 <body>
     <th:block th:insert="fragments/header :: header"></th:block>
     <main class="user-index">
-    	<table border="1" class="user-index__table-header" style="table-layout: fixed;">
+    	<table border="1" bordercolor="#8B4513" class="user-index__table-header" style="table-layout: fixed;">
         	<tr class="user-index__table-header__column">
                 <th width="10">名前</th>
                 <th width="5">性別</th>
@@ -20,7 +20,7 @@
             </tr>
         </table> 
         <div class="user-index__contents">
-            <table border="1" class="user-index__contents__table-content" style="table-layout: fixed;">
+            <table border="1" bordercolor="#8B4513" class="user-index__contents__table-content" style="table-layout: fixed;">
                 <tr class="user-index__contents__table-content__element" th:each="employee:${employees}" th:object="${employee}">
                     <td width="10" th:text="*{name}"></td>
                     <td width="5" th:text="*{sex}"></td>
@@ -54,8 +54,15 @@
                     <a href="?page=2&size=6" class="user-index__pagenation__num">4</a>
                 </li>
                 <li>
+                    <a href="?page=2&size=6" class="user-index__pagenation__num">5</a>
+                </li>
+                <li>
+                    <a href="?page=2&size=6" class="user-index__pagenation__num">6</a>
+                </li>
+                <li>
                     <a href="#" class="user-index__pagenation__after">次のページ</a>
                 </li>
+                
         </ul>
     </main>
 </body>

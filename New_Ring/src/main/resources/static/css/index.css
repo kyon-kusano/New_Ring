@@ -1,19 +1,24 @@
 .user-index {
-  background-color: yellow;
+  background-color: #FFAD90;
+  padding: 10px 0;
 }
 
 .user-index__table-header {
-  margin-bottom: 10px;
-  width: 90%;
+  margin: 0 10px 10px 10px;
+  width: 1287px;
+  background-color: #FFDBC9;
+  color: #8B4513;
 }
 
 .user-index__contents {
-  margin-bottom: 10px;
+  margin: 0 10px 10px 10px;
   display: flex;
 }
 
 .user-index__contents__table-content {
-  width: 90%;
+  width: 1287px;
+  background-color: white;
+  color: #8B4513;
 }
 
 td{
@@ -24,12 +29,16 @@ td{
   height: 34px;
   margin-left: 15px;
   background-color: white;
+  color: #8B4513;
+  border-color: #8B4513;
 }
 
 .user-index__contents__delete {
   height: 34px;
   margin-left: 15px;
   background-color: white;
+  color: #8B4513;
+  border-color: #8B4513;
 }
 
 .user-index__pagenation {
@@ -39,5 +48,10 @@ td{
 
 li{
   display: inline;
+  border: 1px #8B4513 solid;
+  padding:7px 7px 7px 12px ;
+  color: #8B4513;
+  background-color: white;
+  margin: 0 5px ;
 }
 /*# sourceMappingURL=index.css.map */
