@@ -1,0 +1,56 @@
+.user-index {
+  background-color: #FFAD90;
+  padding: 10px 0;
+}
+
+.user-index__table-header {
+  margin: 0 10px 10px 10px;
+  width: 1287px;
+  background-color: #FFDBC9;
+  color: #8B4513;
+}
+
+.user-index__contents {
+  margin: 0 10px 10px 10px;
+  display: flex;
+}
+
+.user-index__contents__table-content {
+  width: 1287px;
+  background-color: white;
+  color: #8B4513;
+}
+
+td{
+  text-align: center;
+}
+
+.user-index__contents__update {
+  height: 34px;
+  margin-left: 15px;
+  background-color: white;
+  color: #8B4513;
+  border-color: #8B4513;
+}
+
+.user-index__contents__delete {
+  height: 34px;
+  margin-left: 15px;
+  background-color: white;
+  color: #8B4513;
+  border-color: #8B4513;
+}
+
+.user-index__pagenation {
+  list-style: none;
+  text-align:center;
+}
+
+li{
+  display: inline;
+  border: 1px #8B4513 solid;
+  padding:7px 7px 7px 12px ;
+  color: #8B4513;
+  background-color: white;
+  margin: 0 5px ;
+}
