@@ -16,6 +16,9 @@ public class AccountController {
 	@Autowired
 	private AccountRepository repository;
 
+	@Autowired
+	private AccountService accountService;
+
 	public List<Employee> get() {
 		return (List<Employee>) repository.findAll();
 	}
@@ -44,5 +47,12 @@ public class AccountController {
 	@RequestMapping("/top")
 	public String top() {
 		return "employee";
+	}
+
+	@GetMapping("/index")
+	private String Index(Model model) {
+	    List<Employee> employees = accountService.findAllList();
+	    model.addAttribute("employees", employees);
+	    return "index";
 	}
 }
