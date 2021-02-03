@@ -25,6 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/login").permitAll() // ログイン画面 全てのユーザーがアクセス可
 				.antMatchers("/admin/**").hasRole("ADMIN") // 管理画面 ADMIN"権限がないとアクセスできない
 				.anyRequest().authenticated(); // 全てのURLリクエストは認証されているユーザーしかアクセスできないという記述です
+				
 
 		// 認証に関わるパラメータを指定
 		http.formLogin().loginProcessingUrl("/login").loginPage("/login") // ログインの処理をするURL ログイン画面のURL
@@ -38,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.invalidateHttpSession(true).permitAll(); // ログアウトしたらセッションを無効にする
 		http.sessionManagement().invalidSessionUrl("/signin");
 	}
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
@@ -52,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	// ここではSpringSecurityの制限を無視してほしい場所の指定
 	// 例： 静的ファイルなどを置いている場所
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/image/**", "/js/**");
+		web.ignoring().antMatchers("/css/**", "/images/**", "/js/**");
 	}
 
 	@Bean

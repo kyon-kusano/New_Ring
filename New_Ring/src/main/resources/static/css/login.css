@@ -43,7 +43,7 @@ img{
   
 }
   input{
-    margin:30px 0;
+    margin:20px 0;
 	height:20px;
 	border:1px #FFAD90;
  
@@ -54,5 +54,8 @@ img{
     color:#8B4513;
     background-color:white;
     height:30px;
+  }
+  .alert-danger{
+  color:red;
   }
 

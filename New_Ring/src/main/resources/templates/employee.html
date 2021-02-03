@@ -10,7 +10,7 @@
 <main>
 <th:block th:insert="fragments/header :: header"></th:block>
  <div th:fragment="/logout" sec:authorize="isAuthenticated()" >    
-      <h1>
+      <h1 class="emp-info">
         <span class="page-title" >職員情報</span>
       </h1>
       <table>
