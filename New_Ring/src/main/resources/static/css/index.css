@@ -25,15 +25,7 @@ td{
   text-align: center;
 }
 
-.user-index__contents__update {
-  height: 34px;
-  margin-left: 15px;
-  background-color: white;
-  color: #8B4513;
-  border-color: #8B4513;
-}
-
-.user-index__contents__delete {
+.user-index__contents__details {
   height: 34px;
   margin-left: 15px;
   background-color: white;
