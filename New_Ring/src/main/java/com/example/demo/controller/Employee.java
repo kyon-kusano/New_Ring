@@ -20,15 +20,22 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.Data;
+
+import lombok.Getter;
+import lombok.Setter;
 @Entity
 @Table(name= "employee")
-@Data
+@Setter
+@Getter
 public class Employee implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -42,12 +49,16 @@ public class Employee implements UserDetails {
     private long id;
 
 	@Column(nullable = false, unique = true)
+	@Size(min=2,max=20)
 	private String username;
 
 	@Column(nullable = false)
+	@Size(min=4, max=255)
 	private String password;
 
 	@Column(nullable = false, unique = true)
+	@Email
+	@NotBlank
 	private String email;
 
 	@Temporal(TemporalType.DATE)
@@ -61,6 +72,7 @@ public class Employee implements UserDetails {
 	private String department;
 
 	@Column()
+	@Pattern(regexp="[0-9]+")
 	private String telephone_Number;
 
 	@Column()
