@@ -12,9 +12,8 @@
    	   <img th:src="@{/images/login.png}">
    	    <h1 class="app-head_name">New Ring</h1>
    	  </div> 
-   	  
       <div class = "login-form">
-        <span th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"class="alert-danger" th:text="ユーザ名またはパスワードに誤りがあります"></span>
+        <span th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"class="alert-danger" th:text="メールアドレスまたはパスワードに誤りがあります"></span>
         <form th:action="@{/login}" method = "post">
           <input class = "login-form__e-mail" type="text" name="email" size ="40" placeholder="E-mail" autofocus="autofocus"><br>
           <input class = "login-form__pass" type = "password" name="password" size ="40" placeholder = "Password"><br>
