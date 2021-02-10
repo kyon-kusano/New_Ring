@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>ユーザー情報一覧</title>
+<th:block th:insert="fragments/base :: head"></th:block>
+<link href="/css/list.css" rel="stylesheet"></link>
+<meta charset="utf-8" />
+</head>
+<body>
+	<th:block th:insert="fragments/header :: header"></th:block>
+	<h1>ユーザー情報一覧</h1>
+	<div>
+		<a th:href="@{/admin/create}">新規登録はこちら</a> <a th:href="@{/top}">トップページ</a>
+	</div>
+	<form th:action="@{/admin/list}" method="post" id="serch_form">
+		<table>
+			<tr style="text-align: right;">
+				<td><select name="department" th:onchange="submit(this.form)">
+						<option th:each="department : ${departments}" th:value="${department.name}"
+							th:selected="${selectedDepartment}==${department.name}" th:text="${department.name}"></option>
+				</select> <select name="column" th:onchange="submit(this.form)">
+						<!-- th:onchange="submit(this.form)" -->
+						<option th:each="selectColumn : ${selectColumns}" th:value="${selectColumn.key}"
+							th:selected="${selectedColumn}==${selectColumn.key}" th:text="${selectColumn.value}"></option>
+				</select></td>
+			</tr>
+		</table>
+	</form>
+	<form th:action="@{/admin/list}" method="post" name="keyword" id="serch_form">
+		<table>
+			<tr style="text-align: right;">
+				<td>キーワード : <input type="text" class="form-control" id="serch_input" name="keyword" th:value="${serchedKeyword}" /></input> <input
+					type="submit" value="検索" />
+				</td>
+			</tr>
+			<tr th:if="${error}" style="text-align: right;">
+				<td th:text="${error}" style="color: red;"></td>
+			</tr>
+		</table>
+	</form>
+	<div id="list">
+		<table>
+			<thead>
+				<tr>
+					<th width="30px">No.</th>
+					<!-- <th>ID</th> -->
+					<!-- <th>権限</th> -->
+					<th width="100px">名前</th>
+					<!-- <th>メールアドレス</th> -->
+					<th width="100px">部署</th>
+					<th width="30px">性別</th>
+					<th width="30px">年齢</th>
+					<!-- <th>電話番号</th> -->
+					<!-- <th>住所</th> -->
+					<th width="100px">入社日</th>
+					<!-- <th>更新日</th>
+				<th>登録日</th>
+				<th>削除日</th> -->
+					<th width="30px"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="employee : ${employees}" th:object="${employee}">
+					<!-- <td class="center no"></td> -->
+					<td class="center" th:text="*{id}"></td>
+					<!-- <td class="center" th:text="*{authorities}"></td>  -->
+					<td class="center" th:text="*{username}"></td>
+					<!-- <td class="center" th:text="*{email}"></td> -->
+					<td class="center" th:text="*{department.name}"></td>
+					<td class="center" th:text="*{sex}"></td>
+					<td class="center birthday" th:text="*{birthday}"></td>
+					<!-- 				<td class="center" th:text="*{telephone_Number}"></td>
+				<td class="center" th:text="*{address}"></td> -->
+					<td class="center" th:text="${#dates.format(employee.join_Date, 'yyyy年MM月dd日')}"></td>
+					<!-- <td class="center" th:text="${#dates.format(admin.update_Date, 'yyyy/MM/dd')}"></td>
+				<td class="center" th:text="${#dates.format(admin.create_Date, 'yyyy/MM/dd')}"></td>
+				<td class="center" th:text="${#dates.format(admin.delete_Date, 'yyyy/MM/dd')}"></td> -->
+					<td class="center"><a th:href="@{/admin/{id}(id=*{id})}">詳細</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- <div th:if="${pagination.totalPageCnt} > 1"> -->
+	<div id="pagination" th:if="${pagination.totalListCnt} != 0">
+		<ul class="pagination" th:if="${serchedKeyword} == null and ${selectedDepartment} == null">
+			<li class="page-item" style="display: inline;"><span th:if="${pagination.page} == ${pagination.prevBlock}">最初</span><a
+				th:if="${pagination.page} != ${pagination.prevBlock}" class="page-link" th:href="@{/admin/list/?page=1}" aria-label="Previous">
+					<span aria-hidden="true">最初</span>
+			</a></li>
+			<li th:if="${serchedKeyword} == null and ${selectedDepartment} == null " class="page-item" style="display: inline;"><span
+				th:if="${pagination.page} == ${pagination.prevBlock}">前へ</span><a th:if="${pagination.page} != ${pagination.prevBlock}"
+				class="page-link" th:href="@{/admin/list/?page={page} (page = ${pagination.page}-1)}" aria-label="Previous"> <span
+					aria-hidden="true">前へ</span>
+			</a></li>
+			<th:block th:if="${serchedKeyword} == null and ${selectedDepartment} == null "
+				th:with="start = ${pagination.page}-3, end = ${pagination.page}+3">
+				<li class="page-item" th:with="start = ${pagination.page}-3, end = ${pagination.page}+3"
+					th:each="pageButton : ${#numbers.sequence(start, end)}" th:if="${pageButton} > 0 and ${pageButton} <= ${pagination.totalPageCnt}"  style="display: inline; margin-left: 10px;"><span
+					th:if="${pagination.page} == ${pageButton}" th:text=${pageButton}></span><a th:if="${pagination.page} != ${pageButton}"
+					class="page-link" th:href="@{/admin/list/?page={page} (page = ${pageButton})}" th:text=${pageButton}></a></li>
+			</th:block>
+			<li th:if="${serchedKeyword} == null and ${selectedDepartment} == null " class="page-item" style="display: inline;"><span
+				th:if="${pagination.page} == ${pagination.nextBlock}">次へ</span><a th:if="${pagination.page} != ${pagination.nextBlock}"
+				class="page-link" th:href="@{/admin/list/?page={page} (page = ${pagination.page}+1)}" aria-label="Next"> <span
+					aria-hidden="true">次へ</span>
+			</a></li>
+			<li th:if="${serchedKeyword} == null and ${selectedDepartment} == null " class="page-item" style="display: inline;"><span
+				th:if="${pagination.page} == ${pagination.nextBlock}">最後</span><a th:if="${pagination.page} != ${pagination.nextBlock}"
+				class="page-link" th:href="@{/admin/list/?page={page} (page = ${pagination.totalPageCnt})}" aria-label="Previous"> <span
+					aria-hidden="true">最後</span>
+			</a></li>
+		</ul>
+		<ul th:if="${serchedKeyword} != null and ${serchedKeyword} != '' ">
+			<li class="page-item" style="display: inline;"><span th:if="${pagination.page} == ${pagination.prevBlock}">最初</span><a
+				th:if="${pagination.page} != ${pagination.prevBlock}" class="page-link"
+				th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${1},serchedKeyword=${serchedKeyword}) }"
+				aria-label="Previous"> <span aria-hidden="true">最初</span>
+			</a></li>
+			<li class="page-item" style="display: inline;"><span th:if="${pagination.page} == ${pagination.startPage}">前へ</span><a
+				th:if="${pagination.page} != ${pagination.startPage}" class="page-link"
+				th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${pagination.page}-1,serchedKeyword=${serchedKeyword}) }"
+				aria-label="Previous"> <span aria-hidden="true">前へ</span>
+			</a></li>
+			<th:block th:with="start = ${pagination.page}-3, end = ${pagination.page}+3">
+				<li class="page-item" th:with="start = ${pagination.page}-3, end = ${pagination.page}+3"
+					th:each="pageButton : ${#numbers.sequence(start, end)}" th:if="${pageButton} > 0 and ${pageButton} <= ${pagination.totalPageCnt}" style="display: inline; margin-left: 10px;"><span
+					th:if="${pagination.page} == ${pageButton}" th:text=${pageButton}></span> <a th:if="${pagination.page} != ${pageButton}"
+					class="page-link"
+					th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${pageButton},serchedKeyword=${serchedKeyword}) }"
+					th:text=${pageButton}></a></li>
+			</th:block>
+			<li class="page-item" style="display: inline;"><span th:if="${pagination.page} == ${pagination.nextBlock}">次へ</span><a
+				th:if="${pagination.page} != ${pagination.nextBlock}" class="page-link"
+				th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${pagination.page}+1,serchedKeyword=${serchedKeyword}) }"
+				aria-label="Next"> <span aria-hidden="true">次へ</span>
+			</a></li>
+			<li class="page-item" style="display: inline;"><span th:if="${pagination.page} == ${pagination.nextBlock}">最後</span><a
+				th:if="${pagination.page} != ${pagination.nextBlock}" class="page-link"
+				th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${pagination.totalPageCnt},serchedKeyword=${serchedKeyword}) }"
+				aria-label="Previous"> <span aria-hidden="true">最後</span>
+			</a></li>
+		</ul>
+		<ul th:if="${selectedDepartment} != null">
+			<li class="page-item" style="display: inline;"><span th:if="${pagination.page} == ${pagination.prevBlock}">最初</span><a
+				th:if="${pagination.page} != ${pagination.prevBlock}" class="page-link"
+				th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${1},department=${selectedDepartment},column=${selectedColumn}) }"
+				aria-label="Previous"> <span aria-hidden="true">最初</span>
+			</a></li>
+			<li class="page-item" style="display: inline;"><span th:if="${pagination.page} == ${pagination.prevBlock}">前へ</span><a
+				th:if="${pagination.page} != ${pagination.prevBlock}" class="page-link"
+				th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${pagination.page}-1,department=${selectedDepartment},column=${selectedColumn}) }"
+				aria-label="Previous"> <span aria-hidden="true">前へ</span>
+			</a></li>
+			<th:block th:with="start = ${pagination.page}-3, end = ${pagination.page}+3">
+				<li class="page-item" th:with="start = ${pagination.page}-3, end = ${pagination.page}+3"
+					th:each="pageButton : ${#numbers.sequence(start, end)}" th:if="${pageButton} > 0 and ${pageButton} <= ${pagination.totalPageCnt}" style="display: inline; margin-left: 10px;"><span
+					th:if="${pagination.page} == ${pageButton}" th:text=${pageButton}></span> <a th:if="${pagination.page} != ${pageButton}"
+					class="page-link"
+					th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${pageButton},department=${selectedDepartment},column=${selectedColumn}) }"
+					th:text=${pageButton}></a></li>
+			</th:block>
+			<li class="page-item" style="display: inline;"><span th:if="${pagination.page} == ${pagination.endPage}">次へ</span><a
+				th:if="${pagination.page} != ${pagination.endPage}" class="page-link"
+				th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${pagination.page}+1,department=${selectedDepartment},column=${selectedColumn}) }"
+				aria-label="Next"> <span aria-hidden="true">次へ</span>
+			</a></li>
+			<li class="page-item" style="display: inline;"><span th:if="${pagination.page} == ${pagination.nextBlock}">最後</span><a
+				th:if="${pagination.page} != ${pagination.nextBlock}" class="page-link"
+				th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${pagination.totalPageCnt},department=${selectedDepartment},column=${selectedColumn}) }"
+				aria-label="Previous"> <span aria-hidden="true">最後</span>
+			</a></li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" th:src="@{/js/list.js}"></script>
+</html>

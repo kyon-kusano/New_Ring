@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragments/base :: head"></th:block>
+<link th:href="@{/css/employee.css}" rel="stylesheet" type="text/css">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<th:block th:insert="fragments/header :: header"></th:block>
+		<div th:object="${employee}" class="form">
+			<h2>
+				<span class="page-title">マイページ</span>
+			</h2>
+			<table>
+				<tr>
+					<th>職員番号</th>
+					<td th:text="*{id}"></td>
+				</tr>
+				<tr>
+					<th>名前</th>
+					<td th:text="*{username}"></td>
+				</tr>
+				<tr>
+					<th>性別</th>
+					<td th:text="*{sex}"></td>
+				</tr>
+				<tr>
+					<th>生年月日</th>
+					<td th:text="*{#dates.format(birthday, 'yyyy/MM/dd')}"></td>
+				</tr>
+				<tr>
+					<th>住所</th>
+					<td th:text="*{address}"></td>
+				</tr>
+				<tr>
+					<th>メールアドレス</th>
+					<td th:text="*{email}"></td>
+				</tr>
+				<tr>
+					<th>電話番号</th>
+					<td th:text="*{telephone_Number}"></td>
+				</tr>
+				<tr>
+					<th>入社日</th>
+					<td th:text="*{#dates.format(join_Date, 'yyyy/MM/dd')}"></td>
+				</tr>
+				<tr>
+					<th>部署名</th>
+					<td th:text="*{department.name}"></td>
+				</tr>
+				<tr>
+					<th>権限</th>
+					<td th:each="authority : *{authorities}" th:text="${authority}"></td>
+				</tr>
+			</table>
+			<div class="button" align="center">
+				<a th:href="@{/edit/{id}(id=*{id})}">編集</a>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

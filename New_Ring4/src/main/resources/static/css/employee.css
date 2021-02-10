@@ -1,0 +1,60 @@
+main{
+  /* width:60%; */
+ margin: 0 auto;
+  height: 100vh;
+  color: #8B4513;
+  background-color: #FFAD90;
+}
+
+ main h1{
+   padding: 30px 0px 10px 250px;
+ }
+    .page-title{
+      border-bottom: solid;
+  	  border-width: 2px;
+    }
+
+
+ main table{
+    margin: 0 auto;
+  /*  width:50%; */
+
+ }
+
+main table  tr {
+      height: 40px;
+      text-align: left;
+   
+}
+main table th{
+        width: 400px;
+        text-align: left;
+       
+
+      }
+
+main  table td{
+        width: 150px;
+        }
+      
+main button{
+	width:80px;
+	float:right;
+	margin-top:100px;
+	padding: 10px 20px;
+  	border-radius: 1px;
+ 	border-color: #FFDBC9;
+ 	background-color: white;
+ 	color: #8B4513;
+ }
+ 
+ main .delete-btn{
+ margin-right:100px;
+ margin-left:40px;
+ background-color:#FF570D;
+ color:white;
+	  
+ }
+ 
+ 
+ 
