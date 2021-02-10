@@ -85,7 +85,7 @@ public class BaseController extends selectBean {
 	/**
 	 * パスワード変更画面
 	 */
-	@GetMapping("/password")
+	@GetMapping
 	public String updatePass() {
 		return "password_form";
 	}
@@ -93,7 +93,7 @@ public class BaseController extends selectBean {
 	/**
 	 * パスワード変更
 	 */
-	@PostMapping("/password")
+	@PostMapping
 	public String topupdate(@Validated @ModelAttribute PasswordRequest passwordRequest, BindingResult result,
 			Model model) {
 

@@ -89,12 +89,6 @@ public class Employee implements UserDetails {
 	@Column(nullable = false)
 	private boolean enabled;
 
-	private boolean isAccountNonExpired;
-
-	private boolean isAccountNonLocked;
-
-	private boolean isCredentialsNonExpired;
-
 	// roleは複数管理できるように、Set<>で定義。
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
@@ -120,17 +114,11 @@ public class Employee implements UserDetails {
 		this.updated_at = updated_at;
 		this.deleted_at = deleted_at;
 		this.enabled = true;
-		this.isAccountNonExpired = true;
-		this.isAccountNonLocked = true;
-		this.isCredentialsNonExpired = true;
 		this.authorities = EnumSet.of(Authority.ROLE_USER);
 	}
 
 	public Employee(EmployeeRequest employeeRequest) {
 		this.enabled = true;
-		this.isAccountNonExpired = true;
-		this.isAccountNonLocked = true;
-		this.isCredentialsNonExpired = true;
 		this.authorities = EnumSet.of(Authority.ROLE_USER);
 	}
 
@@ -161,6 +149,24 @@ public class Employee implements UserDetails {
 			authorities.add(new SimpleGrantedAuthority(authority.toString()));
 		}
 		return authorities;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO 自動生成されたメソッド・スタブ
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO 自動生成されたメソッド・スタブ
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO 自動生成されたメソッド・スタブ
+		return true;
 	}
 
 }

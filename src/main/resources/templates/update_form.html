@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragments/base :: head"></th:block>
+<link th:href="@{/css/update.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<th:block th:insert="fragments/header :: header"></th:block>
+	<main>
+		<h1>
+			<span class="page-tytle">職員情報の変更</span>
+		</h1>
+		<form th:action="@{/edit/{id}(id=${employeeUpdateRequest.id})}" th:object="${employeeUpdateRequest}" method="post">
+			<table>
+				<tr>
+					<th>・名前</th>
+					<td><input type="text" th:field="*{username}" th:errorclass="error__input"> <span
+						th:errors="*{username}" class="error__message"></span></td>
+				</tr>
+				<tr>
+					<th>・性別</th>
+					<td><span th:each="sex : ${sexes}"> <input type="radio" name="sex"
+							th:value="${sex.value}" th:id="${sex.key}" th:checked="${sex.value}==*{sex}"
+							style="width: 20px;"> <label th:for="${sex.key}" th:text="${sex.value}"></label>
+					</span> <span th:errors="*{sex}" class="error__message"></span></td>
+				</tr>
+				<tr>
+					<th>・生年月日</th>
+					<td><input type="date" th:field="*{birthday}" th:errorclass="error__input"> <span
+						th:errors="*{birthday}" class="error__message"></span></td>
+				</tr>
+				<tr>
+					<th>・住所</th>
+					<td><input type="text" th:field="*{address}" th:errorclass="error__input"> <span
+						th:errors="*{address}" class="error__message"></span></td>
+				</tr>
+				<tr>
+					<th>・メールアドレス</th>
+					<td><input type="email" th:field="*{email}" th:errorclass="error__input"> <span
+						th:errors="*{email}" class="error__message"></span></td>
+				</tr>
+				<tr>
+					<th>・連絡先</th>
+					<td><input type="text" th:field="*{telephone_Number}" th:errorclass="error__input">
+						<span th:errors="*{telephone_Number}" class="error__message"></span></td>
+				</tr>
+				<tr>
+					<th>・入社日</th>
+					<td><input type="date" th:field="*{join_Date}" th:errorclass="error__input"> <span
+						th:errors="*{join_Date}" class="error__message"></span></td>
+				</tr>
+				<tr>
+					<th>・部署名</th>
+					<td><select id="singleSelect" name="department">
+							<option th:each="department : ${departments}" th:value="${department.value}"
+								th:selected="${department.value}==*{department}" th:text="${department.value}"></option>
+					</select><span th:errors="*{department}" class="error__message"></span></td>
+				</tr>
+				<!-- 	<tr>
+					<th>・管理権限</th>
+					<td><select th:field="*{role}">
+							<option value="0">管理者</option>
+							<option value="1">一 般</option>
+					</select></td>
+				</tr> -->
+			</table>
+			<input type="submit" value="変更" class="submit-btn">
+		</form>
+	</main>
+</body>
+</html>

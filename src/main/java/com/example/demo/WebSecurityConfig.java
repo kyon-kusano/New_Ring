@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// ここではユーザーの持っている権限によってみれるページを制限しています
 		http.authorizeRequests().antMatchers("/login").permitAll() // ログイン画面 全てのユーザーがアクセス可
-//				.antMatchers("/admin/**").hasRole("ADMIN") // 管理画面 ADMIN"権限がないとアクセスできない
+				.antMatchers("/admin/**").hasRole("ADMIN") // 管理画面 ADMIN"権限がないとアクセスできない
 				.anyRequest().authenticated(); // 全てのURLリクエストは認証されているユーザーしかアクセスできないという記述です
 
 		// 認証に関わるパラメータを指定
@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	// ここではSpringSecurityの制限を無視してほしい場所の指定
 	// 例： 静的ファイルなどを置いている場所
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/images/**", "/js/**");
+		web.ignoring().antMatchers("/css/**", "/image/**", "/js/**");
 	}
 
 	@Bean
