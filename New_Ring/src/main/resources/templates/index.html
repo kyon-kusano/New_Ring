@@ -31,11 +31,12 @@
 					<td width="13" th:text="*{birthday}"></td>
 					<td width="13" th:text="*{join_Date}"></td>
 					<td width="10" th:text="*{department}"></td>
+					<button th:href="@{/detail/{id}(id=*{id})}" class="user-index__contents_details">詳細</button>
 				</tr>
 			</table>
 			
 			<!--ここのURLは要変更-->
-			<button th:href="@{/detail/{id}(id=${employee.id})}" class="user-index__contents_details">詳細</button>
+			
 			
 		</div>
 		<!--ページネーションのthymeleafは後ほど-->
