@@ -23,19 +23,20 @@
 		<div class="user-index__contents">
 			<table border="1" bordercolor="#8B4513"
 				class="user-index__contents__table-content"
-				style="table-layout: fixed;">
+				style="table-layout: fixed;" th:each="employee:${employees}">
 				<tr class="user-index__contents__table-content__element"
-					th:each="employee:${employees}" th:object="${employee}">
+					 th:object="${employee}">
 					<td width="10" th:text="*{username}"></td>
 					<td width="5" th:text="*{sex}"></td>
 					<td width="13" th:text="*{birthday}"></td>
 					<td width="13" th:text="*{join_Date}"></td>
 					<td width="10" th:text="*{department}"></td>
+					<button th:href="@{/detail/{id}(id=*{id})}" class="user-index__contents_details">詳細</button>
 				</tr>
 			</table>
 			
 			<!--ここのURLは要変更-->
-			<button th:href="@{/top2/{id}}" class="user-index__contents_details">詳細</button>
+			
 			
 		</div>
 		<!--ページネーションのthymeleafは後ほど-->
