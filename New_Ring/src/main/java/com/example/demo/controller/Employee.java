@@ -69,7 +69,7 @@ public class Employee implements UserDetails {
 	private int sex;
 
 	@Column()
-	private String department;
+	private Department department;
 
 	@Column()
 	@Pattern(regexp="[0-9]+")
@@ -109,7 +109,7 @@ public class Employee implements UserDetails {
 	protected Employee() {}
 
 	//コンストラクタ
-		public Employee(String username, String password, String email, Date birthday, int sex, String department, String telephone_Number,
+		public Employee(String username, String password, String email, Date birthday, int sex, Department department, String telephone_Number,
 					   String address, Date join_Date, Date updated_at, Date deleted_at) {
 			this.username = username;
 			this.password = password;
@@ -159,7 +159,7 @@ public class Employee implements UserDetails {
 		return authorities;
 	}
 
-	
+
 
 
 	@Override
