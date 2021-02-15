@@ -17,7 +17,7 @@ import com.example.demo.controller.AccountService;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private AccountService userService;
+	private AccountService accountService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -41,10 +41,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(accountService).passwordEncoder(passwordEncoder());
 
-		if (userService.findAllList().isEmpty()) {
-			userService.registerAdmin("admin", "secret", "admin@localhost", null, 0, "IT事業部", null, null, null, null, null);
+		if (accountService.findAllList().isEmpty()) {
+			accountService.registerAdmin("admin", "secret", "admin@localhost", null, 0, accountService.findDepartment((long) 1), null, null, null, null, null);
 		}
 	}
 
