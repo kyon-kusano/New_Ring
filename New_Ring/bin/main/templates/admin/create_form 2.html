@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragments/base :: head"></th:block>
+<link th:href="@{/css/create.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<th:block th:insert="fragments/header :: header"></th:block>
+	<main>
+		<h1>
+			<span class="page-tytle">職員情報の登録</span>
+		</h1>
+		<form th:action="@{/admin/create}" th:object="${employeeRequest}" method="post">
+			<table>
+				<tr>
+					<th>・名前</th>
+					<td>
+						<input type="text" th:field="*{username}" th:errorclass="error__input">
+						<span th:errors="*{username}" class="error__message"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>・性別</th>
+					<td>
+						<span th:each="sex : ${sexes}">
+							<input type="radio" name="sex" th:value="${sex.value}" th:id="${sex.key}" th:checked="${requestSex == sex.value}" style="width: 20px;">
+							<label th:for="${sex.key}" th:text="${sex.value}"></label>
+						</span>
+						<span th:errors="*{sex}" class="error__message"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>・生年月日</th>
+					<td>
+						<input type="date" th:field="*{birthday}" th:errorclass="error__input">
+						<span th:errors="*{birthday}" class="error__message"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>・住所</th>
+					<td>
+						郵便番号
+						<input type="text" id="input_zip" th:field="*{address.post_Number}" th:errorclass="error__input">
+						<br> 住所
+						<input type="text" id="input_state_town" th:field="*{address.address1}" th:errorclass="error__input">
+						住所
+						<input type="text" id="input_street" th:field="*{address.address2}" th:errorclass="error__input">
+					</td>
+				</tr>
+				<tr>
+					<th>・メールアドレス</th>
+					<td>
+						<input type="email" th:field="*{email}" th:errorclass="error__input">
+						<span th:text="${error}" class="error__message"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>・連絡先</th>
+					<td>
+						<input type="text" th:field="*{telephone_Number}" th:errorclass="error__input">
+						<span th:errors="*{telephone_Number}" class="error__message"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>・入社日</th>
+					<td>
+						<input type="date" th:field="*{join_Date}" th:errorclass="error__input">
+						<span th:errors="*{join_Date}" class="error__message"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>・部署名</th>
+					<td>
+						<select id="singleSelect" name="department">
+							<option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"
+								th:selected="${requestDepartment} == ${department.id}"></option>
+						</select>
+						<div th:text="${departmentError}" class="error__message"></div>
+					</td>
+				</tr>
+				<tr>
+					<th>・管理権限</th>
+					<td>
+
+						<select name="authority">
+							<option value="false" th:selected="*{authority} == false">一 般</option>
+							<option value="true" th:selected="*{authority} == true">管理者</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<div class="button_area">
+				<input type="submit" value="登録" class="btn link">
+			</div>
+		</form>
+	</main>
+</body>
+<script type="text/javascript" src="https://postcode-jp.com/js/postcodejp.js" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{/js/PostcodeJP.js}"></script>
+</html>

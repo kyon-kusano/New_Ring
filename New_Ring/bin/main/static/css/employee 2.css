@@ -1,0 +1,84 @@
+main {
+	color: #8B4513;
+	background-color: #FFAD90;
+}
+
+main h1 {
+	padding: 30px 0px 10px 250px;
+}
+
+.page-title {
+	border-bottom: solid;
+	border-width: 2px;
+}
+
+main table {
+	width: 100%;
+	padding: 0 20%;
+}
+
+main table  tr {
+	height: 50px;
+	text-align: left;
+}
+
+main table th {
+	width: 50%;
+	text-align: left;
+}
+
+main  table td {
+	width: 100%;
+}
+
+.a_button {
+	display: inline-block;
+	border-style: solid;
+	background-color: lightgray;
+	border-width: 1px;
+	border-color: darkgray;
+	color: black;
+	text-decoration: none;
+}
+
+main button {
+	min-width: 80px;
+	padding: 10px 20px;
+	margin: 0 8px;
+	border-radius: 1px;
+	border-color: #FFDBC9;
+	background-color: white;
+	color: #8B4513;
+	border-radius: 1px;
+}
+
+
+main .button_area {
+	display: flex;
+	justify-content: center;
+	padding: 16px 0 32px 0;
+}
+
+
+main  .button_area .link {
+	min-width: 80px;
+	padding: 10px 20px;
+	margin: 10px 8px;
+	text-align: center;
+	/* border-color: rgb(255, 219, 201) rgb(220, 184, 166) rgb(220, 184, 166)
+		rgb(255, 219, 201); */
+	box-shadow: 0 3px 0 rgb(220, 184, 166);
+	border-width: 0 2px 2px 0;
+	display: inline-block;
+	/* border-style: solid; */
+	background-color: white;
+	color: #8B4513;
+	border-radius: 1px;
+	text-decoration: none;
+	box-shadow: 0 3px 0 rgb(220, 184, 166)
+}
+
+main  .button_area .link:active {
+	box-shadow: 0 0px 0 rgb(220, 184, 166);
+	margin: 12px 8px 8px;
+}
