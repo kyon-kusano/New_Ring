@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+<meta charset="UTF-8">
+</head>
+<body>
+	<th:block th:fragment="pagination">
+		<div id="pagination" th:if="${pagination.totalListCnt} != 0">
+			<ul class="pagination" th:if="${serchedKeyword} == null and ${selectedDepartment} == null">
+				<li th:if="${pagination.page} != ${pagination.prevBlock}" class="page-item">
+					<a class="page-link" th:href="@{/admin/list/?page=1}" aria-label="Previous">
+						<span aria-hidden="true">最初</span>
+					</a>
+				</li>
+				<li th:if="${serchedKeyword} == null and ${selectedDepartment} == null and ${pagination.page} != ${pagination.prevBlock}" class="page-item">
+					<span th:if="${pagination.page} == ${pagination.prevBlock}">前へ</span>
+					<a class="page-link" th:href="@{/admin/list/?page={page} (page = ${pagination.page}-1)}" aria-label="Previous">
+						<span aria-hidden="true">前へ</span>
+					</a>
+				</li>
+				<li th:if="${pagination.page} - 3 >= 1" class="dot">
+					<span>...</span>
+				</li>
+				<th:block th:if="${serchedKeyword} == null and ${selectedDepartment} == null " th:with="start = ${pagination.page}-3, end = ${pagination.page}+3">
+					<li class="page-item" th:with="start = ${pagination.page}-3, end = ${pagination.page}+3" th:each="pageButton : ${#numbers.sequence(start, end)}"
+						th:if="${pageButton} > 0 and ${pageButton} <= ${pagination.totalPageCnt}">
+						<span th:if="${pagination.page} == ${pageButton}" th:text=${pageButton}></span>
+						<a th:if="${pagination.page} != ${pageButton}" class="page-link" th:href="@{/admin/list/?page={page} (page = ${pageButton})}"
+							th:text=${pageButton}></a>
+					</li>
+				</th:block>
+				<li th:if="${pagination.page} + 3 < ${pagination.totalPageCnt}" class="dot">
+					<span>...</span>
+				</li>
+				<li th:if="${serchedKeyword} == null and ${selectedDepartment} == null and ${pagination.page} != ${pagination.nextBlock}" class="page-item">
+					<span th:if="${pagination.page} == ${pagination.nextBlock}">次へ</span>
+					<a class="page-link" th:href="@{/admin/list/?page={page} (page = ${pagination.page}+1)}" aria-label="Next">
+						<span aria-hidden="true">次へ</span>
+					</a>
+				</li>
+				<li th:if="${serchedKeyword} == null and ${selectedDepartment} == null and ${pagination.page} != ${pagination.nextBlock}" class="page-item">
+					<a class="page-link" th:href="@{/admin/list/?page={page} (page = ${pagination.totalPageCnt})}" aria-label="Previous">
+						<span aria-hidden="true">最後</span>
+					</a>
+				</li>
+			</ul>
+			<ul th:if="${serchedKeyword} != null and ${serchedKeyword} != '' ">
+				<li th:if="${pagination.page} != ${pagination.prevBlock}" class="page-item">
+					<a class="page-link" th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${1},serchedKeyword=${serchedKeyword}) }"
+						aria-label="Previous">
+						<span aria-hidden="true">最初</span>
+					</a>
+				</li>
+				<li th:if="${pagination.page} != ${pagination.startPage}" class="page-item">
+					<span th:if="${pagination.page} == ${pagination.startPage}">前へ</span>
+					<a class="page-link" th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${pagination.page}-1,serchedKeyword=${serchedKeyword}) }"
+						aria-label="Previous">
+						<span aria-hidden="true">前へ</span>
+					</a>
+				</li>
+				<li th:if="${pagination.page} - 3 >= 1" class="dot">
+					<span>...</span>
+				</li>
+				<th:block th:with="start = ${pagination.page}-3, end = ${pagination.page}+3">
+					<li class="page-item" th:with="start = ${pagination.page}-3, end = ${pagination.page}+3" th:each="pageButton : ${#numbers.sequence(start, end)}"
+						th:if="${pageButton} > 0 and ${pageButton} <= ${pagination.totalPageCnt}">
+						<span th:if="${pagination.page} == ${pageButton}" th:text=${pageButton}></span>
+						<a th:if="${pagination.page} != ${pageButton}" class="page-link"
+							th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${pageButton},serchedKeyword=${serchedKeyword}) }" th:text=${pageButton}></a>
+					</li>
+				</th:block>
+				<li th:if="${pagination.page} + 3 < ${pagination.totalPageCnt}" class="dot">
+					<span>...</span>
+				</li>
+				<li th:if="${pagination.page} != ${pagination.nextBlock}" class="page-item">
+					<span th:if="${pagination.page} == ${pagination.nextBlock}">次へ</span>
+					<a class="page-link" th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${pagination.page}+1,serchedKeyword=${serchedKeyword}) }"
+						aria-label="Next">
+						<span aria-hidden="true">次へ</span>
+					</a>
+				</li>
+				<li th:if="${pagination.page} != ${pagination.nextBlock}" class="page-item">
+					<a class="page-link"
+						th:href="@{/admin/list/page={page}&keyword={serchedKeyword}(page=${pagination.totalPageCnt},serchedKeyword=${serchedKeyword}) }"
+						aria-label="Previous">
+						<span aria-hidden="true">最後</span>
+					</a>
+				</li>
+			</ul>
+			<ul th:if="${selectedDepartment} != null">
+				<li th:if="${pagination.page} != ${pagination.prevBlock}" class="page-item">
+					<a class="page-link"
+						th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${1},department=${selectedDepartment},column=${selectedColumn}) }"
+						aria-label="Previous">
+						<span aria-hidden="true">最初</span>
+					</a>
+				</li>
+				<li th:if="${pagination.page} != ${pagination.prevBlock}" class="page-item">
+					<span th:if="${pagination.page} == ${pagination.prevBlock}">前へ</span>
+					<a class="page-link"
+						th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${pagination.page}-1,department=${selectedDepartment},column=${selectedColumn}) }"
+						aria-label="Previous">
+						<span aria-hidden="true">前へ</span>
+					</a>
+				</li>
+				<li th:if="${pagination.page} - 3 >= 1" class="dot">
+					<span>...</span>
+				</li>
+				<th:block th:with="start = ${pagination.page}-3, end = ${pagination.page}+3">
+					<li class="page-item" th:with="start = ${pagination.page}-3, end = ${pagination.page}+3" th:each="pageButton : ${#numbers.sequence(start, end)}"
+						th:if="${pageButton} > 0 and ${pageButton} <= ${pagination.totalPageCnt}">
+						<span th:if="${pagination.page} == ${pageButton}" th:text=${pageButton}></span>
+						<a th:if="${pagination.page} != ${pageButton}" class="page-link"
+							th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${pageButton},department=${selectedDepartment},column=${selectedColumn}) }"
+							th:text=${pageButton}></a>
+					</li>
+				</th:block>
+				<li th:if="${pagination.page} + 3 < ${pagination.totalPageCnt}" class="dot">
+					<span>...</span>
+				</li>
+				<li th:if="${pagination.page} != ${pagination.endPage}" class="page-item">
+					<span th:if="${pagination.page} == ${pagination.endPage}">次へ</span>
+					<a class="page-link"
+						th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${pagination.page}+1,department=${selectedDepartment},column=${selectedColumn}) }"
+						aria-label="Next">
+						<span aria-hidden="true">次へ</span>
+					</a>
+				</li>
+				<li th:if="${pagination.page} != ${pagination.nextBlock}" class="page-item">
+					<a class="page-link"
+						th:href="@{/admin/list/page={page}&department={department}&sort={column}(page=${pagination.totalPageCnt},department=${selectedDepartment},column=${selectedColumn}) }"
+						aria-label="Previous">
+						<span aria-hidden="true">最後</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</th:block>
+</body>
+</html>

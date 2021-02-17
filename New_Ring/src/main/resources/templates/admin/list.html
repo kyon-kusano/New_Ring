@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>ユーザー情報一覧</title>
+<th:block th:insert="fragments/base :: head"></th:block>
+<link th:href="@{/css/list.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/pagination.css}" rel="stylesheet" type="text/css">
+<meta charset="utf-8" />
+</head>
+<body>
+	<th:block th:insert="fragments/header :: header"></th:block>
+	<main>
+		<h1>
+			<span class="page-title">従業員一覧</span>
+		</h1>
+		<form th:action="@{/admin/list}" method="post" name="keyword">
+			<table id="keyword">
+				<tr>
+					<td class="clearfix">
+						<span class="test">キーワード :</span>
+						<input type="text" class="form-control" id="serch_input" name="keyword" th:value="${serchedKeyword}" /></input>
+						<input type="submit" value="検索" />
+						<span th:if="${errorKeyword} == null and ${serchedKeyword} != null " th:text="${serchedKeyword}+' の検索結果'"
+							style="font-size: 1.3em; font-weight: bold; color: #8B4513; float: right; border: none; padding-right: 10px;"></span>
+						<span th:if="${errorKeyword} != null and ${selectedDepartment} == null" th:text="${serchedKeyword}+' に'+${errorKeyword}"
+							style="font-size: 1.3em; font-weight: bold; color: #8B4513; float: right; border: none;"> </span>
+						<img id="not_found_img1" th:if="${errorKeyword} != null and ${selectedDepartment} == null" th:src="@{/images/notFound.png}">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<form th:action="@{/admin/list}" method="post">
+			<table id="sort">
+				<tr style="text-align: right;">
+					<td class="clearfix">
+						<span style="float: left; border: none; padding-left: 30px; font-size: 1.3em; font-weight: bold; color: #8B4513;"
+							th:if="${selectedDepartment} != null and ${errorDepartment} == null and ${selectedDepartment} != '未選択'"
+							th:text="${selectedDepartment} +' の検索結果'"></span>
+						<span th:if="${selectedDepartment} != null and ${errorDepartment} != null" th:text="${selectedDepartment}+' に'+${errorDepartment} "
+							style="float: left; border: none; padding-left: 30px; font-size: 1.3em; font-weight: bold; color: #8B4513;">
+							<span></span>
+						</span>
+						<img id="not_found_img2" th:if="${selectedDepartment} != null and ${errorDepartment} != null " th:src="@{/images/notFound.png}">
+						<div class="select">
+							<select name="department" th:onchange="submit(this.form)">
+								<option th:each="department : ${departments}" th:value="${department.name}" th:selected="${selectedDepartment}==${department.name}"
+									th:text="${department.name}"></option>
+							</select>
+							<select name="column" th:onchange="submit(this.form)">
+								<option th:each="selectColumn : ${selectColumns}" th:value="${selectColumn.key}" th:selected="${selectedColumn}==${selectColumn.key}"
+									th:text="${selectColumn.value}"></option>
+							</select>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div id="list">
+			<table id="list_table">
+				<thead class="user-index__table-header">
+					<tr>
+						<th width="30px">No.</th>
+						<th width="100px">名前</th>
+						<th width="100px">部署</th>
+						<th width="30px">性別</th>
+						<th width="30px">年齢</th>
+						<th width="100px">入社日</th>
+						<th width="30px"></th>
+					</tr>
+				</thead>
+				<tbody class="user-index__contents__table-content">
+					<tr th:each="employee : ${employees}" th:object="${employee}" class="employee">
+						<!-- <td class="center" th:text="*{id}"></td> -->
+						 <td class="center" th:text="*{id}"></td>
+						<td class="center" th:text="*{username}"></td>
+						<td class="center" th:text="*{department.name}"></td>
+						<td class="center" th:text="*{sex}"></td>
+						<td class="center birthday" th:text="*{birthday}"></td>
+						<td class="center" th:text="${#dates.format(employee.join_Date, 'yyyy年MM月dd日')}"></td>
+						<td class="center">
+							<a th:href="@{/admin/{id}(id=*{id})}">詳細</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<th:block th:include="admin/pagination :: pagination"></th:block>
+	</main>
+</body>
+<script type="text/javascript" th:src="@{/js/list.js}"></script>
+</html>
