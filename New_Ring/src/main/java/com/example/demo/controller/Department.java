@@ -1,25 +1,27 @@
-package com.example.demo.model.entity;
+package com.example.demo.controller;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
+@Table()
 public class Department {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-	@Column(nullable = false, unique = true)
 	private String name;
 
 	@OneToMany(mappedBy = "department")
@@ -28,9 +30,4 @@ public class Department {
 	protected Department() {
 
 	}
-
-	public Department(String name) {
-		this.name = name;
-	}
-
 }

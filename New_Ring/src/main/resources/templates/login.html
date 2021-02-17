@@ -2,29 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link th:href="@{css/login.css}" rel="stylesheet" type="text/css">
-<th:block th:insert="fragments/base :: head"></th:block>
-<title>ログイン画面</title>
+ <link th:href="@{css/login.css}" rel="stylesheet" type="text/css">
+ <th:block th:insert="fragments/base :: head"></th:block>
+ <title>ログイン画面</title>
 </head>
 <body>
-	<main>
-		<div class="app-head">
-			<img th:src="@{/images/login.png}">
-			<h1 class="app-head_name">New Ring</h1>
-		</div>
-		<div class="login-form">
-			<form th:action="@{/login}" method="post">
-				<span th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null" class="alert-danger" th:text="メールアドレスまたはパスワードに誤りがあります"></span>
-				<br>
-				<input class="login-form__e-mail" type="text" name="email" size="40" placeholder="E-mail" autofocus="autofocus">
-				<br>
-				<input class="login-form__pass" type="password" name="password" size="40" placeholder="Password">
-				<br>
-				<div class="button_area">
-					<input type="submit" value="Login" class="link">
-				</div>
-			</form>
-		</div>
-	</main>
+	<div class = "container">
+   	  <div class="app-head">
+   	   <img th:src="@{/images/login.png}">
+   	    <h1 class="app-head_name">New Ring</h1>
+   	  </div> 
+      <div class = "login-form">
+        <span th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"class="alert-danger" th:text="メールアドレスまたはパスワードに誤りがあります"></span>
+        <form th:action="@{/login}" method = "post">
+          <input class = "login-form__e-mail" type="text" name="email" size ="40" placeholder="E-mail" autofocus="autofocus"><br>
+          <input class = "login-form__pass" type = "password" name="password" size ="40" placeholder = "Password"><br>
+          <input class = "login-form_check" type = "checkbox" name = "" value =""><label>ログイン状態を保持する</label><br>
+          <input type="submit" value="Login" class="login-btn">
+        </form>
+      </div>
+    </div>
 </body>
 </html>

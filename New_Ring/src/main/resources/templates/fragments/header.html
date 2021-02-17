@@ -5,7 +5,7 @@
 </head>
 <body>
 	<th:block th:fragment="header">
-	<header>
+	<header>	
 		<img th:src="@{/images/header_icon.png}">
 		<h1>New Ring</h1>
 		<ul>
@@ -16,12 +16,12 @@
 					</h3>
 				</a>
 			</li>
-			<li><a th:href="@{/admin/list}" sec:authorize="hasRole('ROLE_ADMIN')">職員の一覧</a></li>
-			<li><a th:href="@{/admin/create}" sec:authorize="hasRole('ROLE_ADMIN')">新規登録</a></li>
+			<li><a th:href="@{/index}" sec:authorize="hasRole('ROLE_ADMIN')">職員の一覧</a></li>
+			<li><a th:href="@{/create}" sec:authorize="hasRole('ROLE_ADMIN')">新規登録</a></li>
 			<li><a th:href="@{/password}">パスワードの変更</a></li>
 			<li><a th:href="@{/logout}">ログアウト</a></li>
 		</ul>
-	</header>
+	</header>	
 	</th:block>
 </body>
 </html>

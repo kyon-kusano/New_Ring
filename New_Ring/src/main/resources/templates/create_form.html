@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <th:block th:insert="fragments/base :: head"></th:block>
-  <link rel="stylesheet" href="css/update.css" type="text/css">
+  <link th:href="@{css/create.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
   <th:block th:insert="fragments/header :: header"></th:block>
   <main>
     <h1>
-      <span class="page-tytle">職員情報の変更</span>
+      <span class="page-tytle">職員情報の登録</span>
     </h1>
-    <form th:action="@{/update/{id}(id=${employee.id})}" th:object="${employee}" method="post">
+    <form th:action="@{/create}" th:object="${employee}" method="post">
       <table>
         <tr>
           <th>・名前</th>
@@ -90,8 +90,15 @@
             </select>
           </td>
         </tr>
+        <tr>
+          <th>パスワード</th>
+          <td>
+          	<input type="text" th:field="*{password}" th:errorclass="error__input">
+          	<span th:field="*{password}" class=""></span>
+          </td>
+        </tr>
       </table>
-      <input type="submit" value="変更" class="submit-btn">
+      <input type="submit" value="登録" class="submit-btn">
     </form>
   </main>
 </body>

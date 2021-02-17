@@ -9,48 +9,52 @@
 <body>
 <main>
 <th:block th:insert="fragments/header :: header"></th:block>
- <div th:fragment="/logout" sec:authorize="isAuthenticated()" >    
+  <div th:object="${employee}">
       <h1 class="emp-info">
         <span class="page-title" >職員情報</span>
       </h1>
       <table>
         <tr>
           <th>職員番号</th>
-         <td sec:authentication="principal.id"></td> 
+         <td th:field="*{id}"></td> 
         </tr>
         <tr>
           <th>名前</th>
-           <td sec:authentication="name"></td> 
+           <td th:field="*{username}" ></td> 
         </tr>
         <tr>
           <th>性別</th>
-           <td sec:authentication="principal.sex"></td>
+           <td th:field="*{sex}"></td>
         </tr>
         <tr>
           <th>生年月日</th>
-           <td sec:authentication="principal.birthday"></td> 
+           <td th:field="*{birthday}"></td> 
         </tr>
         <tr>
           <th>住所</th>
-          <td sec:authentication="principal.address"></td> 
+          <td th:field="*{address}"></td> 
         </tr>
         <tr>
           <th>メールアドレス</th>
-         <td sec:authentication="principal.email"></td> 
+         <td th:field="*{email}"></td> 
         </tr>
         <tr>
           <th>電話番号</th>
-          <td sec:authentication="principal.telephone_Number"></td> 
+          <td th:field="*{telephone_Number}"></td> 
         </tr> 
         <tr>
           <th>入社日</th>
-         <td sec:authentication="principal.join_Date"></td> 
+         <td th:field="*{join_Date}"></td> 
         </tr>
         <tr>
           <th>部署名</th>
-          <td sec:authentication="principal.department" ></td> 
+          <td th:field="*{department}" ></td> 
         </tr>
       </table> 
+      <div class = "button" align = "center">
+        <button th:href="@{/delete/{id}{id=${employee.id}}"class="delete-btn">削除</button>
+        <button th:href="@{/edit/{id}(id=${employee.id}}"class="update-btn">変更</button>
+      </div>
     </div>
    </main>
 </body>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>こんにちは</h2>
+<div th:fragment="/logout" sec:authorize="isAuthenticated()">
+    <p>こんにちは:
+        <span sec:authentication="name"></span>さん</p>
+    <p>mail:
+        <span sec:authentication="principal.email"></span></p>
+    <p>権限:
+        <span sec:authentication="principal.authorities"></span></p>
+     <p>部署:
+        <span sec:authentication="principal.department"></span></p>
+      <p>電話番号:
+        <span sec:authentication="principal.telephone_Number"></span></p>
+
+  <p>住所:
+        <span sec:authentication="principal.address"></span></p>
+
+
+    <form action="#" th:action="@{/logout}" method="post">
+        <input type="submit" value="ログアウト" />
+    </form>
+</div>
+</body>
+</html>
