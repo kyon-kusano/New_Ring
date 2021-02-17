@@ -1,0 +1,111 @@
+body {
+  background-color: #ffad90;
+}
+body main {
+  padding: 0 50px;
+  color: #8b4513;
+}
+body main h1 {
+  padding: 10px 0;
+}
+body main .page-title {
+  border-bottom: solid;
+  border-width: 2px;
+}
+body main .clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+body main table {
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  padding: 0 50px;
+}
+body main table th,
+body main table td {
+  border: 1px solid #ffdbc9;
+  padding: 6px;
+}
+body main table th {
+  background-color: #f2f2f2;
+}
+body main #serch_input {
+  width: 150px;
+  font-size: 1.1em;
+}
+body main #keyword td .test {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #8b4513;
+}
+body main #sort td {
+  border: none;
+  padding: 4px 0 0;
+}
+body main #sort td span {
+  margin-top: 2px;
+}
+body main #sort td .select {
+  height: 26px;
+}
+body main #sort td select {
+  font-size: 1.1em;
+  width: 100px;
+  vertical-align: -webkit-baseline-middle;
+}
+body main .center {
+  text-align: center;
+}
+body main ul {
+  list-style: none;
+}
+body main #list {
+  min-height: 60vh;
+  border-color: #8b4513;
+}
+body main #list td:nth-child(1) {
+  width: 1%;
+}
+body main #list td:nth-child(2) {
+  width: 1%;
+}
+body main #list td:nth-child(3) {
+  width: 1%;
+}
+body main #list td:nth-child(4) {
+  width: 1%;
+}
+body main #list td:nth-child(5) {
+  width: 1%;
+}
+body main #list td:nth-child(6) {
+  width: 1%;
+}
+body main #list td:nth-child(7) {
+  width: 1%;
+}
+body main .user-index__table-header tr th {
+  background-color: #ffdbc9;
+  color: #8b4513;
+  border: 1px solid #8b4513;
+}
+body main .user-index__contents__table-content tr td {
+  background-color: white;
+  color: #8b4513;
+  border: 1px solid #8b4513;
+}
+body main #not_found_img2 {
+  float: left;
+  display: inline;
+  height: 23px;
+}
+body main #not_found_img1 {
+  float: right;
+  display: inline;
+  height: 23px;
+  margin-right: 10px;
+}
+
+/*# sourceMappingURL=list.css.map */

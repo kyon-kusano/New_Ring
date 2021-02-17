@@ -1,0 +1,111 @@
+@charset "UTF-8";
+
+body {
+  background-color: #ffad90;
+  main {
+    padding: 0 50px;
+    color: #8b4513;
+    h1 {
+      padding: 10px 0;
+    }
+    .page-title {
+      border-bottom: solid;
+      border-width: 2px;
+    }
+    .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+    table {
+      min-width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      padding: 0 50px;
+    }
+    table th,
+    table td {
+      border: 1px solid #ffdbc9;
+      padding: 6px;
+    }
+    table th {
+      background-color: #f2f2f2;
+    }
+    #serch_input {
+      width: 150px;
+      font-size: 1.1em;
+    }
+    #keyword td .test {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #8b4513;
+    }
+    #sort td {
+      border: none;
+      padding: 4px 0 0;
+    }
+    #sort td span {
+      margin-top: 2px;
+    }
+    #sort td .select {
+      height: 26px;
+    }
+    #sort td select {
+      font-size: 1.1em;
+      width: 100px;
+      vertical-align: -webkit-baseline-middle;
+    }
+    .center {
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+    }
+    #list {
+      min-height: 60vh;
+      border-color: #8b4513;
+    }
+    #list td:nth-child(1) {
+      width: 1%;
+    }
+    #list td:nth-child(2) {
+      width: 1%;
+    }
+    #list td:nth-child(3) {
+      width: 1%;
+    }
+    #list td:nth-child(4) {
+      width: 1%;
+    }
+    #list td:nth-child(5) {
+      width: 1%;
+    }
+    #list td:nth-child(6) {
+      width: 1%;
+    }
+    #list td:nth-child(7) {
+      width: 1%;
+    }
+    .user-index__table-header tr th {
+      background-color: #ffdbc9;
+      color: #8b4513;
+      border: 1px solid #8b4513;
+    }
+    .user-index__contents__table-content tr td {
+      background-color: white;
+      color: #8b4513;
+      border: 1px solid #8b4513;
+    }
+    #not_found_img2 {
+      float: left;
+      display: inline;
+      height: 23px;
+    }
+    #not_found_img1 {
+      float: right;
+      display: inline;
+      height: 23px;
+      margin-right: 10px;
+    }
+  }
+}
