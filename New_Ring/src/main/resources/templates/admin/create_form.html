@@ -11,7 +11,7 @@
 		<h1>
 			<span class="page-tytle">職員情報の登録</span>
 		</h1>
-		<form th:action="@{/admin/create}" th:object="${employeeRequest}" method="post">
+		<form th:action="@{/admin/create}" th:object="${employeeRequest}" method="post" name="create" onsubmit="return cancelsubmit()">
 			<table>
 				<tr>
 					<th>・名前</th>
@@ -91,11 +91,12 @@
 				</tr>
 			</table>
 			<div class="button_area">
-				<input type="submit" value="登録" class="btn link">
+				<input type="submit" value="登録" class="btn link" name="btn">
 			</div>
 		</form>
 	</main>
 </body>
 <script type="text/javascript" src="https://postcode-jp.com/js/postcodejp.js" charset="utf-8"></script>
 <script type="text/javascript" th:src="@{/js/PostcodeJP.js}"></script>
+<script type="text/javascript" th:src="@{/js/create_function.js}"></script>
 </html>

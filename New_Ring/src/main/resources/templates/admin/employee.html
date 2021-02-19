@@ -65,10 +65,11 @@
 			</table>
 			<div class="button_area">
 				<a th:href="@{/admin/edit/{id}(id=*{id})}" class="link">編集</a>
-				<a th:href="@{/admin/delete/{id}(id=*{id})}" class="link" sec:authorize="!hasRole('ROLE_USER')">削除</a>
+				<a th:href="@{/admin/delete/{id}(id=*{id})}" class="link" th:if="${loggedEmployeeId} != ${employee.id}" id="deleting">削除</a>
 				<a th:href="@{/admin/password/{id}(id=*{id})}" class="link">パスワード変更</a>
 			</div>
 		</div>
 	</main>
+	<script type="text/javascript" th:src="@{/js/delete_function.js}"></script>
 </body>
 </html>
