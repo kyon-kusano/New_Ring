@@ -12,7 +12,7 @@
 	<main>
 		<div th:object="${employee}" class="form">
 			<h1>
-				<span class="page-title">マイページ</span>
+				<span class="page-title"><span th:text="*{username}"></span>さんの詳細情報</span>
 			</h1>
 			<table>
 				<tr>
@@ -59,16 +59,17 @@
 				</tr>
 				<tr>
 					<th>権限</th>
-					<!-- <td th:each="authority : *{authorities}" th:text="${authority}"></td> -->
-					<td th:text="*{authorities}"></td>
+					<td th:if="*{authorities.size() == 1}">一般</td>
+					<td th:if="*{authorities.size() == 2}">管理者</td>
 				</tr>
 			</table>
 			<div class="button_area">
 				<a th:href="@{/admin/edit/{id}(id=*{id})}" class="link">編集</a>
-				<a th:href="@{/admin/delete/{id}(id=*{id})}" class="link" sec:authorize="!hasRole('ROLE_USER')">削除</a>
+				<a th:href="@{/admin/delete/{id}(id=*{id})}" class="link" th:if="${loggedEmployeeId} != ${employee.id}" id="deleting">削除</a>
 				<a th:href="@{/admin/password/{id}(id=*{id})}" class="link">パスワード変更</a>
 			</div>
 		</div>
 	</main>
+	<script type="text/javascript" th:src="@{/js/delete_function.js}"></script>
 </body>
 </html>

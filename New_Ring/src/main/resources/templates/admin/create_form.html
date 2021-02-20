@@ -11,7 +11,7 @@
 		<h1>
 			<span class="page-tytle">職員情報の登録</span>
 		</h1>
-		<form th:action="@{/admin/create}" th:object="${employeeRequest}" method="post">
+		<form th:action="@{/admin/create}" th:object="${employeeRequest}" method="post" name="create" onsubmit="return cancelsubmit()">
 			<table>
 				<tr>
 					<th>・名前</th>
@@ -41,11 +41,11 @@
 					<th>・住所</th>
 					<td>
 						郵便番号
-						<input type="text" id="input_zip" th:field="*{address.post_Number}" th:errorclass="error__input">
-						<br> 住所
-						<input type="text" id="input_state_town" th:field="*{address.address1}" th:errorclass="error__input">
-						住所
-						<input type="text" id="input_street" th:field="*{address.address2}" th:errorclass="error__input">
+						<input type="text" id="post_Number" th:field="*{address.post_Number}" th:errorclass="error__input">
+						住所1
+						<input type="text" id="address1" th:field="*{address.address1}" th:errorclass="error__input">
+						住所2
+						<input type="text" id="address2" th:field="*{address.address2}" th:errorclass="error__input">
 					</td>
 				</tr>
 				<tr>
@@ -82,7 +82,6 @@
 				<tr>
 					<th>・管理権限</th>
 					<td>
-
 						<select name="authority">
 							<option value="false" th:selected="*{authority} == false">一 般</option>
 							<option value="true" th:selected="*{authority} == true">管理者</option>
@@ -91,11 +90,12 @@
 				</tr>
 			</table>
 			<div class="button_area">
-				<input type="submit" value="登録" class="btn link">
+				<input type="submit" value="登録" class="btn link" name="btn">
 			</div>
 		</form>
 	</main>
 </body>
 <script type="text/javascript" src="https://postcode-jp.com/js/postcodejp.js" charset="utf-8"></script>
 <script type="text/javascript" th:src="@{/js/PostcodeJP.js}"></script>
+<script type="text/javascript" th:src="@{/js/create_function.js}"></script>
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -207,8 +208,11 @@ public class AdminController extends selectBean {
 	/** 従業員詳細画面 **/
 	@GetMapping("/admin/{id}")
 	public String displayView(@PathVariable Long id, Model model) {
+		Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long loggedEmployeeId = loggedEmployee.getId();
 		Employee employee = adminService.findById(id);
 		model.addAttribute("employee", employee);
+		model.addAttribute("loggedEmployeeId", loggedEmployeeId);
 		return "admin/employee";
 	}
 
@@ -284,7 +288,9 @@ public class AdminController extends selectBean {
 	 * パスワード変更画面
 	 */
 	@GetMapping("/admin/password/{id}")
-	public String updatePass(@PathVariable Long id) {
+	public String updatePass(@PathVariable Long id, Model model) {
+		Employee employee = adminService.findById(id);
+		model.addAttribute("username", employee.getUsername());
 		return "admin/password_form";
 	}
 
