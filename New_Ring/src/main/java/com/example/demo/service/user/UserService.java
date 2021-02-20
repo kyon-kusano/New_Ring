@@ -28,7 +28,6 @@ public class UserService extends BaseService {
 		employee.setAddress(employeeUpdateRequest.getAddress());
 		employee.setDepartment(findDepartment(employeeUpdateRequest.getDepartment()));
 		employee.setTelephone_Number(employeeUpdateRequest.getTelephone_Number());
-		employee.setAddress(employeeUpdateRequest.getAddress());
 		employee.setJoin_Date(employeeUpdateRequest.getJoin_Date());
 		employee.setUpdated_at(now);
 		if (employeeUpdateRequest.isAuthority() == true) {

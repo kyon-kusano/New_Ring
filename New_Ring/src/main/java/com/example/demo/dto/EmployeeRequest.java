@@ -27,7 +27,6 @@ public class EmployeeRequest implements Serializable {
 
 	private String sex;
 
-//    private Department department;
 	private int department;
 
 	private Address address;

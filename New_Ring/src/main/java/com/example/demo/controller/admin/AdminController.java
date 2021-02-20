@@ -288,7 +288,9 @@ public class AdminController extends selectBean {
 	 * パスワード変更画面
 	 */
 	@GetMapping("/admin/password/{id}")
-	public String updatePass(@PathVariable Long id) {
+	public String updatePass(@PathVariable Long id, Model model) {
+		Employee employee = adminService.findById(id);
+		model.addAttribute("username", employee.getUsername());
 		return "admin/password_form";
 	}
 
