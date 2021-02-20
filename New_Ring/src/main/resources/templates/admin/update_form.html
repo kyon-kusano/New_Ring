@@ -56,7 +56,7 @@
 					<th>・メールアドレス</th>
 					<td>
 						<input type="email" th:field="*{email}" th:errorclass="error__input">
-						<span th:text="${error}" class="error__message"></span>
+						<span th:errors="*{email}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
