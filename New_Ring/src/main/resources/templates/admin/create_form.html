@@ -41,11 +41,11 @@
 					<th>・住所</th>
 					<td>
 						郵便番号
-						<input type="text" id="input_zip" th:field="*{address.post_Number}" th:errorclass="error__input">
-						<br> 住所
-						<input type="text" id="input_state_town" th:field="*{address.address1}" th:errorclass="error__input">
-						住所
-						<input type="text" id="input_street" th:field="*{address.address2}" th:errorclass="error__input">
+						<input type="text" id="post_Number" th:field="*{address.post_Number}" th:errorclass="error__input">
+						<br> 住所1
+						<input type="text" id="address1" th:field="*{address.address1}" th:errorclass="error__input">
+						住所2
+						<input type="text" id="address2" th:field="*{address.address2}" th:errorclass="error__input">
 					</td>
 				</tr>
 				<tr>
@@ -82,7 +82,6 @@
 				<tr>
 					<th>・管理権限</th>
 					<td>
-
 						<select name="authority">
 							<option value="false" th:selected="*{authority} == false">一 般</option>
 							<option value="true" th:selected="*{authority} == true">管理者</option>

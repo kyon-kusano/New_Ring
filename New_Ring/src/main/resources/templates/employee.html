@@ -56,10 +56,6 @@
 					<th>部署名</th>
 					<td th:text="*{department.name}"></td>
 				</tr>
-				<tr>
-					<th>権限</th>
-					<td th:text="*{authorities}"></td>
-				</tr>
 			</table>
 			<div class="button_area">
 				<a th:href="@{/edit/{id}(id=*{id})}" class="link">編集</a>
