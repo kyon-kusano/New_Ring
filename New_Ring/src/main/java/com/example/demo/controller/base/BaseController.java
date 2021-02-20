@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -90,29 +89,8 @@ public class BaseController extends selectBean {
 
 			return "update_form";
 		}
-		if (employeeUpdateRequest.getDepartment() == 1) {
 
-			List<Department> departments = userService.findAllDepartments();
-			stringModel.addAttribute("departments", departments);
-			stringModel.addAttribute("sexes", getSex);
-			model.addAttribute("requestDepartment", employeeUpdateRequest.getDepartment());
-			model.addAttribute("requestSex", employeeUpdateRequest.getSex());
-			model.addAttribute("requestAuthority", employeeUpdateRequest.isAuthority());
-			model.addAttribute("departmentError", "部署を選択してください");
-			return "admin/update_form";
-		}
-		try {
-			userService.update(employeeUpdateRequest);
-		} catch (DataIntegrityViolationException e) {
-			List<Department> departments = userService.findAllDepartments();
-			stringModel.addAttribute("departments", departments);
-			stringModel.addAttribute("sexes", getSex);
-			model.addAttribute("requestDepartment", employeeUpdateRequest.getDepartment());
-			model.addAttribute("requestSex", employeeUpdateRequest.getSex());
-			model.addAttribute("requestAuthority", employeeUpdateRequest.isAuthority());
-			model.addAttribute("error", "このメールアドレスはすでに登録されています。");
-			return "update_form";
-		}
+		userService.update(employeeUpdateRequest);
 
 		return "redirect:/top";
 	}
