@@ -12,12 +12,12 @@
 			<span class="page-tytle">職員情報の変更</span>
 		</h1>
 		<form th:action="@{/admin/edit/{id}(id=${employeeUpdateRequest.id})}" th:object="${employeeUpdateRequest}" method="post">
-			<table>
+	 		<table>
 				<tr>
 					<th>・名前</th>
 					<td>
-						<input type="text" th:field="*{username}" th:errorclass="error__input">
-						<span th:errors="*{username}" class="error__message"></span>
+						<input type="text" th:field="*{username}" th:errorclass="fieldError">
+						<span style="color: red;" th:errors="*{username}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
@@ -27,47 +27,51 @@
 							<input type="radio" name="sex" th:value="${sex.value}" th:id="${sex.key}" th:checked="${sex.value}==*{sex}" style="width: 20px;">
 							<label th:for="${sex.key}" th:text="${sex.value}"></label>
 						</span>
-						<span th:errors="*{sex}" class="error__message"></span>
+						<span style="color: red;" th:errors="*{sex}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・生年月日</th>
 					<td>
-						<input type="date" th:field="*{birthday}" th:errorclass="error__input">
-						<span th:errors="*{birthday}" class="error__message"></span>
+						<input type="date" th:field="*{birthday}" th:errorclass="fieldError">
+						<span style="color: red;" th:errors="*{birthday}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・住所</th>
 					<td>
-						<input style="display: none;" type="text" th:field="*{address.id}" th:value="*{address.id}" th:errorclass="error__input">
+						<input style="display: none;" type="text" th:field="*{address.id}" th:value="*{address.id}" th:errorclass="fieldError">
 						郵便番号
-						<input type="text" id="sample1_zip" th:field="*{address.post_Number}" th:errorclass="error__input">
+						<input type="text" id="sample1_zip" th:field="*{address.post_Number}" th:errorclass="fieldError">
+						<span style="color: red;" th:errors="*{address.post_Number}" class="error__message"></span>
 						住所
-						<input type="text" id="sample1_addr" th:field="*{address.address1}" th:errorclass="error__input">
+						<input type="text" id="sample1_addr" th:field="*{address.address1}" th:errorclass="fieldError">
+						<span style="color: red;" th:errors="*{address.address1}" class="error__message"></span>
 						住所
-						<input type="text" th:field="*{address.address2}" th:errorclass="error__input">
+						<input type="text" th:field="*{address.address2}" th:errorclass="fieldError">
+						<span style="color: red;" th:errors="*{address.address2}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・メールアドレス</th>
 					<td>
-						<input type="email" th:field="*{email}" th:errorclass="error__input">
-						<span th:text="${error}" class="error__message"></span>
+						<input type="email" th:field="*{email}" th:errorclass="fieldError">
+						<span style="color: red;" th:text="${error}" class="error_message"></span>
+						<span style="color: red;" th:errors="*{email}" class="error_message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・連絡先</th>
 					<td>
-						<input type="text" th:field="*{telephone_Number}" th:errorclass="error__input">
-						<span th:errors="*{telephone_Number}" class="error__message"></span>
+						<input type="text" th:field="*{telephone_Number}" th:errorclass="fieldError">
+						<span style="color: red;" th:errors="*{telephone_Number}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・入社日</th>
 					<td>
-						<input type="date" th:field="*{join_Date}" th:errorclass="error__input">
-						<span th:errors="*{join_Date}" class="error__message"></span>
+						<input type="date" th:field="*{join_Date}" th:errorclass="fieldError">
+						<span style="color: red;"th:errors="*{join_Date}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
@@ -79,7 +83,7 @@
 							<option th:if="${requestDepartment} != null" th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"
 								th:selected="${requestDepartment} == ${department.id}"></option>
 						</select>
-						<span th:text="${departmentError}" class="error__message"></span>
+						<div style="color: red;" th:text="${departmentError}" class="error__message"></div>
 					</td>
 				</tr>
 				<tr>
