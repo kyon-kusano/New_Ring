@@ -90,7 +90,7 @@ public class BaseController extends selectBean {
 			return "update_form";
 		}
 
-		userService.update(employeeUpdateRequest);
+		userService.myUpdate(employeeUpdateRequest);
 
 		return "redirect:/top";
 	}
