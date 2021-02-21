@@ -16,9 +16,9 @@ public class UserService extends BaseService {
 	/** id に紐づく従業員情報の取得 **/
 
 	/**
-	 * 従業員の編集処理（USER, ADMIN共通処理）
+	 * ログインユーザの編集処理
 	 **/
-	public void update(EmployeeUpdateRequest employeeUpdateRequest) {
+	public void myUpdate(EmployeeUpdateRequest employeeUpdateRequest) {
 		Employee employee = findById(employeeUpdateRequest.getId());
 
 		employee.setUsername(employeeUpdateRequest.getUsername());
@@ -30,11 +30,6 @@ public class UserService extends BaseService {
 		employee.setTelephone_Number(employeeUpdateRequest.getTelephone_Number());
 		employee.setJoin_Date(employeeUpdateRequest.getJoin_Date());
 		employee.setUpdated_at(now);
-		if (employeeUpdateRequest.isAuthority() == true) {
-			employee.setAdmin(true);
-		} else if (employeeUpdateRequest.isAuthority() == false) {
-			employee.setAdmin(false);
-		}
 		employeeRepository.save(employee);
 	}
 

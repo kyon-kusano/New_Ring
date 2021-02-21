@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.EmployeeRequest;
+import com.example.demo.dto.EmployeeUpdateRequest;
 import com.example.demo.dto.PasswordRequest;
 import com.example.demo.model.entity.Employee;
 import com.example.demo.service.user.UserService;
@@ -40,6 +41,29 @@ public class AdminService extends UserService {
 	/** 新規従業員の登録処理 **/
 	public void create(EmployeeRequest employeeRequest) {
 		employeeRepository.save(createEmployee(employeeRequest));
+	}
+
+	/**
+	 * 従業員の編集処理
+	 **/
+	public void update(EmployeeUpdateRequest employeeUpdateRequest) {
+		Employee employee = findById(employeeUpdateRequest.getId());
+
+		employee.setUsername(employeeUpdateRequest.getUsername());
+		employee.setEmail(employeeUpdateRequest.getEmail());
+		employee.setBirthday(employeeUpdateRequest.getBirthday());
+		employee.setSex(employeeUpdateRequest.getSex());
+		employee.setAddress(employeeUpdateRequest.getAddress());
+		employee.setDepartment(findDepartment(employeeUpdateRequest.getDepartment()));
+		employee.setTelephone_Number(employeeUpdateRequest.getTelephone_Number());
+		employee.setJoin_Date(employeeUpdateRequest.getJoin_Date());
+		employee.setUpdated_at(now);
+		if (employeeUpdateRequest.isAuthority() == true) {
+			employee.setAdmin(true);
+		} else if (employeeUpdateRequest.isAuthority() == false) {
+			employee.setAdmin(false);
+		}
+		employeeRepository.save(employee);
 	}
 
 	/** 従業員の削除 **/
