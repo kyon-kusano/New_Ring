@@ -32,7 +32,7 @@ public class UserService extends BaseService {
 		employee.setUpdated_at(now);
 		if (employeeUpdateRequest.isAuthority() == true) {
 			employee.setAdmin(true);
-		} else {
+		} else if (employeeUpdateRequest.isAuthority() == false) {
 			employee.setAdmin(false);
 		}
 		employeeRepository.save(employee);
