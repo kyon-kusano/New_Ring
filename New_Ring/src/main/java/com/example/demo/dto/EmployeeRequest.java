@@ -19,17 +19,18 @@ import lombok.Data;
 /**
  * ユーザー情報 リクエストデータ
  */
-
+@Unused(emailProperty = "email", requestEmailProperty = "requestEmail")
 @Data
 public class EmployeeRequest implements Serializable {
 
 	@NotBlank(message = "名前を入力してください")
 	private String username;
 
-	@Unused
 	@Email
 	@NotBlank(message = "アドレスを入力してください")
 	private String email;
+
+	private String requestEmail;
 
 	@Past
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
