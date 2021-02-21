@@ -79,7 +79,7 @@
 							<option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"
 								th:selected="${requestDepartment} == ${department.id}"></option>
 						</select>
-						<div style="color: red;" th:text="${departmentError}" class="error__message"></div>
+						<span th:errors="*{department}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
