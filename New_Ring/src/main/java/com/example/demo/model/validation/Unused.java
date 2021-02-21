@@ -9,20 +9,26 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import javax.validation.ReportAsSingleViolation;
 
 @Documented
 @Constraint(validatedBy = { UnusedValidator.class })
-@Target({ FIELD })
+@Target({ TYPE, ANNOTATION_TYPE })
 @Retention(RUNTIME)
+@ReportAsSingleViolation
 public @interface Unused {
 
-	String message() default "すでに登録済みのメールアドレスです";
+	String message() default "すでに登録済みのメールアドレスです。";
 
 	Class<?>[] groups() default {};
 
 	Class<? extends Payload>[] payload() default {};
 
-	@Target({ FIELD })
+	String emailProperty();
+
+	String requestEmailProperty();
+
+	@Target({ TYPE, ANNOTATION_TYPE })
 	@Retention(RUNTIME)
 	@Documented
 	public @interface List {
