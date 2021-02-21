@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class Pagination {
 	/** 1. ページことに表示する掲示物数 **/
-	private int pageSize = 3;
+	private int pageSize = 5;
 
 	/** 2. ページングした、ブロック数 **/
-	private int blockSize = 2;
+	private int blockSize = 5;
 
 	/** 3. 現在ページ **/
 	private int page = 1;
@@ -39,6 +39,10 @@ public class Pagination {
 
 	/** 12. 次のブロックの最後ページ **/
 	private int nextBlock;
+
+	private int resultMin;
+
+	private int resultMax;
 
 	public Pagination(int totalListCnt, int page) {
 
@@ -90,5 +94,9 @@ public class Pagination {
 
 		/** 10. DB接近スタートインデックス **/
 		setStartIndex((page - 1) * pageSize);
+
+		setResultMin((page * pageSize) - (pageSize - 1));
+
+		setResultMax((page * pageSize));
 	}
 }

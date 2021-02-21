@@ -30,5 +30,12 @@ for (var i = 0; i < employee.length; i++) {
 
 }
 
-
+function numbering() {
+	var resultMin = document.getElementById("resultMin").innerText;
+	for (let i = 0; i < employee.length; i++) {
+		var no = document.getElementsByClassName("no")[i];
+		no.innerHTML = (resultMin - 1) + i + 1;
+	}
+}
+numbering();
 
