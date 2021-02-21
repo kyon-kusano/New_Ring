@@ -44,8 +44,9 @@ body {
       border: none;
       padding: 4px 0 0;
     }
-    #sort td span {
-      margin-top: 2px;
+    #sort td .resultCnt {
+      margin-right: 8px;
+   	  vertical-align: bottom;
     }
     #sort td .select {
       height: 26px;
