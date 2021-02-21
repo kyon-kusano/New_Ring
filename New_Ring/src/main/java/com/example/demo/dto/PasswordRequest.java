@@ -22,7 +22,6 @@ public class PasswordRequest implements Serializable {
 	@Size(min = 8, max = 16, message = "パスワードは{min}文字以上{max}文字以下です。")
 	@Pattern(regexp = "[a-zA-Z0-9]*")
 	private String password;
-
 	
 	private String password_Check;
 

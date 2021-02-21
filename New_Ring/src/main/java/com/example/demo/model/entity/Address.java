@@ -16,11 +16,14 @@ public class Address implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	//@NotBlank(message="住所を入力してください")
 	private String post_Number;
-
+	
+	//@NotBlank(message="住所を入力してください")
 	private String address1;
-
+	
+	//@NotBlank(message="住所を入力してください")
 	private String address2;
 
 	protected Address() {

@@ -16,8 +16,8 @@
 				<tr>
 					<th>・名前</th>
 					<td>
-						<input type="text" th:field="*{username}" th:errorclass="error__input">
-						<span th:errors="*{username}" class="error__message"></span>
+						<input type="text" th:field="*{username}" th:errorclass="fieldError">
+						<span style="color: red;"th:errors="*{username}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
@@ -27,47 +27,50 @@
 							<input type="radio" name="sex" th:value="${sex.value}" th:id="${sex.key}" th:checked="${sex.value}==*{sex}" style="width: 20px;">
 							<label th:for="${sex.key}" th:text="${sex.value}"></label>
 						</span>
-						<span th:errors="*{sex}" class="error__message"></span>
+						<span style="color:red;"th:errors="*{sex}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・生年月日</th>
 					<td>
-						<input type="date" th:field="*{birthday}" th:errorclass="error__input">
-						<span th:errors="*{birthday}" class="error__message"></span>
+						<input type="date" th:field="*{birthday}" th:errorclass="fieldError">
+						<span style="color:red;"th:errors="*{birthday}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・住所</th>
 					<td>
-						<input style="display: none;" type="text" th:field="*{address.id}" th:value="*{address.id}" th:errorclass="error__input">
+						<input style="display: none;" type="text" th:field="*{address.id}" th:value="*{address.id}" th:errorclass="fieldError">
 						郵便番号
-						<input type="text" id="post_Number" th:field="*{address.post_Number}" th:errorclass="error__input">
-						住所1
-						<input type="text" id="address1" th:field="*{address.address1}" th:errorclass="error__input">
-						住所2
-						<input type="text" id="address2" th:field="*{address.address2}" th:errorclass="error__input">
+						<input type="text" id="sample1_zip" th:field="*{address.post_Number}" th:errorclass="fieldError">
+						<span style="color: red;" th:errors="*{address.post_Number}" class="error__message"></span>
+						住所
+						<input type="text" id="sample1_addr" th:field="*{address.address1}" th:errorclass="fieldError">
+						<span style="color: red;" th:errors="*{address.address1}" class="error__message"></span>
+						住所
+						<input type="text" th:field="*{address.address2}" th:errorclass="fieldError">
+						<span style="color: red;" th:errors="*{address.address2}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・メールアドレス</th>
 					<td>
-						<input type="email" th:field="*{email}" th:errorclass="error__input">
-						<span th:errors="*{email}" class="error__message"></span>
+						<input type="email" th:field="*{email}" th:errorclass="fieldError">
+						<span style="color: red;"th:errors="*{email}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・連絡先</th>
 					<td>
-						<input type="text" th:field="*{telephone_Number}" th:errorclass="error__input">
-						<span th:errors="*{telephone_Number}" class="error__message"></span>
+						<input type="text" th:field="*{telephone_Number}" th:errorclass="fieldError">
+						<span style="color:red;"th:errors="*{telephone_Number}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>・入社日</th>
 					<td>
-						<input type="date" th:field="*{join_Date}" th:errorclass="error__input">
-						<span th:errors="*{join_Date}" class="error__message"></span>
+						<input type="date" th:field="*{join_Date}" th:errorclass="fieldError">
+						<span style="color:red;"th:errors="*{join_Date}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
@@ -79,7 +82,20 @@
 							<option th:if="${requestDepartment} != null" th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"
 								th:selected="${requestDepartment} == ${department.id}"></option>
 						</select>
-						<span th:text="${departmentError}" class="error__message"></span>
+						<span style="color:red;"th:text="${departmentError}" class="error__message"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>・管理権限</th>
+					<td>
+						<select name="authority" th:if="${requestAuthority} == null">
+							<option value="false" th:selected="*{authorities.size() == 1}">一 般</option>
+							<option value="true" th:selected="*{authorities.size() == 2}">管理者</option>
+						</select>
+						<select name="authority" th:if="${requestAuthority} != null">
+							<option value="false" th:selected="*{authority} == false">一 般</option>
+							<option value="true" th:selected="*{authority} == true">管理者</option>
+						</select>
 					</td>
 				</tr>
 			</table>

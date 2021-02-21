@@ -1,3 +1,9 @@
+.fieldError {
+border:1.5px solid;
+border-color:#FE2E64;
+background-color:#F6CEE3;
+}
+
 main {
   margin: 0 auto;
   /* height: 89vh; */
