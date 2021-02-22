@@ -1,5 +1,8 @@
 package com.example.demo.controller.base;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +15,13 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.bean.selectBean;
+import com.example.demo.dto.Details;
 import com.example.demo.dto.EmployeeUpdateRequest;
 import com.example.demo.dto.PasswordRequest;
 import com.example.demo.model.entity.Department;
@@ -54,6 +60,7 @@ public class BaseController extends selectBean {
 	public String printUser(Model model) {
 		Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Employee employee = userService.findById(loggedEmployee.getId());
+		model.addAttribute("details", new Details());
 		model.addAttribute("employee", employee);
 		return "employee";
 	}
@@ -120,5 +127,63 @@ public class BaseController extends selectBean {
 		}
 		userService.updatePassword(passwordRequest);
 		return "redirect:/top";
+	}
+
+	@GetMapping("/edit/details/{id}")
+	public String myDetailsEdit(@PathVariable Long id, Model model) {
+		Employee employee = userService.findById(id);
+		model.addAttribute("details", new Details());
+		model.addAttribute("employee", employee);
+		return "details_update_form";
+	}
+
+	@PostMapping("/edit/details/{id}")
+	public Object upload(Details details, @PathVariable Long id, RedirectAttributes redirectAttributes) {
+		if (!details.getMultipartFile().isEmpty()) {
+			String extension = "";
+			String filePath = "images/employee/";
+
+			Employee employee = userService.findById(id);
+			String username = employee.getUsername();
+			String comment = details.getComment();
+
+			File uploadDir = mkdirs(filePath, username);
+			uploadDir = mkdirs(uploadDir.toString(), "icon");
+
+			File requestFile = new File(details.getMultipartFile().getOriginalFilename());
+			String requestFileName = requestFile.getName();
+			extension = requestFileName.substring(requestFileName.lastIndexOf("."));
+			String renameFileName = username + extension;
+
+			if (employee.getDetails() != null) {
+				String emplyeeImage = employee.getDetails().getImage();
+				File file = new File(emplyeeImage);
+				file.delete();
+			}
+
+			try {
+				byte[] bytes = details.getMultipartFile().getBytes();
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(new File(uploadDir.toString() + "/" + renameFileName)));
+				stream.write(bytes);
+				stream.close();
+				userService.updateDetails(id, uploadDir.toString() + "/" + renameFileName, comment);
+				redirectAttributes.addAttribute("id", id);
+			} catch (Exception e) {
+				return "redirect:/edit/details/{id}";
+			} catch (Throwable t) {
+				return "redirect:/edit/details/{id}";
+			}
+			return "redirect:/top";
+		} else {
+			return "redirect:/edit/details/{id}";
+		}
+
+	}
+
+	private File mkdirs(String filePath, String profile) {
+		File uploadDir = new File(filePath, profile);
+		uploadDir.mkdirs();
+		return uploadDir;
 	}
 }

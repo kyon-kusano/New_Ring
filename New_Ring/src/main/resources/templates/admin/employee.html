@@ -12,8 +12,12 @@
 	<main>
 		<div th:object="${employee}" class="form">
 			<h1>
-				<span class="page-title"><span th:text="*{username}"></span>さんの詳細情報</span>
+				<span class="page-title">
+					<span th:text="*{username}"></span>
+					さんの詳細情報
+				</span>
 			</h1>
+			<img th:if="*{details} != null" th:src="'/' + *{details.image}" class="employeeImage">
 			<table>
 				<tr>
 					<th>職員番号</th>
@@ -61,6 +65,10 @@
 					<th>権限</th>
 					<td th:if="*{authorities.size() == 1}">一般</td>
 					<td th:if="*{authorities.size() == 2}">管理者</td>
+				</tr>
+				<tr>
+					<th>コメント</th>
+					<td th:if="*{details} != null" th:text="*{details.comment}"></td>
 				</tr>
 			</table>
 			<div class="button_area">

@@ -31,6 +31,12 @@ body {
     table th {
       background-color: #f2f2f2;
     }
+   .employeeImage {
+	width: 20px;
+	height: 20px;
+	border-radius:100%;
+	border: 1px solid darkgray;
+}
     #serch_input {
       width: 150px;
       font-size: 1.1em;
@@ -67,25 +73,28 @@ body {
       border-color: #8b4513;
     }
     #list td:nth-child(1) {
-      width: 1%;
+      width: 2.5%;
     }
     #list td:nth-child(2) {
-      width: 1%;
+      width: 6%;
     }
     #list td:nth-child(3) {
-      width: 1%;
+      width: 24%;
     }
     #list td:nth-child(4) {
-      width: 1%;
+      width: 24%;
     }
     #list td:nth-child(5) {
-      width: 1%;
+      width: 6.6%;
     }
     #list td:nth-child(6) {
-      width: 1%;
+      width: 6.5%;
     }
     #list td:nth-child(7) {
-      width: 1%;
+      width: 24%;
+    }
+   #list td:nth-child(8) {
+      width: 6.6%;
     }
     .user-index__table-header tr th {
       background-color: #ffdbc9;

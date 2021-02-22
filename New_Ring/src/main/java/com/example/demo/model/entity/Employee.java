@@ -74,6 +74,10 @@ public class Employee implements UserDetails {
 	@JoinColumn(name = "id")
 	private Address address;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id")
+	private Details details;
+
 	@Temporal(TemporalType.DATE)
 	@Column()
 	private Date join_Date;
@@ -110,7 +114,8 @@ public class Employee implements UserDetails {
 
 	// コンストラクタ
 	public Employee(String username, String password, String email, Date birthday, String sex, Department department,
-			String telephone_Number, Address address, Date join_Date, Date updated_at, Date deleted_at) {
+			String telephone_Number, Address address, Details details, Date join_Date, Date updated_at,
+			Date deleted_at) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -119,6 +124,7 @@ public class Employee implements UserDetails {
 		this.department = department;
 		this.telephone_Number = telephone_Number;
 		this.address = address;
+		this.details = details;
 		this.join_Date = join_Date;
 		this.updated_at = updated_at;
 		this.deleted_at = deleted_at;

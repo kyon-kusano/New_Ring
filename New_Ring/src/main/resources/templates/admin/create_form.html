@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <th:block th:insert="fragments/base :: head"></th:block>
-<link th:href="@{/css/create.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/update.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<th:block th:insert="fragments/header :: header"></th:block>
@@ -14,14 +14,14 @@
 		<form th:action="@{/admin/create}" th:object="${employeeRequest}" method="post" name="create" onsubmit="return cancelsubmit()">
 			<table>
 				<tr>
-					<th>・名前</th>
+					<th>名前</th>
 					<td>
 						<input type="text" th:field="*{username}" th:errorclass="fieldError">
 						<span style="color: red;" th:errors="*{username}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
-					<th>・性別</th>
+					<th>性別</th>
 					<td>
 						<span th:each="sex : ${sexes}">
 							<input type="radio" name="sex" th:value="${sex.value}" th:id="${sex.key}" th:checked="${requestSex == sex.value}" style="width: 20px;">
@@ -31,14 +31,14 @@
 					</td>
 				</tr>
 				<tr>
-					<th>・生年月日</th>
+					<th>生年月日</th>
 					<td>
 						<input type="date" th:field="*{birthday}" th:errorclass="fieldError">
 						<span style="color: red;" th:errors="*{birthday}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
-					<th>・住所</th>
+					<th>住所</th>
 					<td>
 						郵便番号
 						<input type="text" id="post_Number" th:field="*{address.post_Number}" th:errorclass="fieldError">
@@ -52,28 +52,28 @@
 					</td>
 				</tr>
 				<tr>
-					<th>・メールアドレス</th>
+					<th>メールアドレス</th>
 					<td>
 						<input type="email" th:field="*{email}" th:errorclass="fieldError">
 						<span style="color: red;" th:errors="*{email}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
-					<th>・連絡先</th>
+					<th>連絡先</th>
 					<td>
 						<input type="text" th:field="*{telephone_Number}" th:errorclass="fieldError">
 						<span style="color: red;" th:errors="*{telephone_Number}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
-					<th>・入社日</th>
+					<th>入社日</th>
 					<td>
 						<input type="date" th:field="*{join_Date}" th:errorclass="fieldError">
 						<span style="color: red;" th:errors="*{join_Date}" class="error__message"></span>
 					</td>
 				</tr>
 				<tr>
-					<th>・部署名</th>
+					<th>部署名</th>
 					<td>
 						<select id="singleSelect" name="department">
 							<option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"
@@ -83,7 +83,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>・管理権限</th>
+					<th>管理権限</th>
 					<td>
 						<select name="authority">
 							<option value="false" th:selected="*{authority} == false">一 般</option>

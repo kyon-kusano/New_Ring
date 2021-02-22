@@ -72,6 +72,7 @@
 			<table id="list_table">
 				<thead class="user-index__table-header">
 					<tr>
+						<th width="30px"></th>
 						<th width="30px">No.</th>
 						<th width="100px">名前</th>
 						<th width="100px">部署</th>
@@ -83,6 +84,7 @@
 				</thead>
 				<tbody class="user-index__contents__table-content">
 					<tr th:each="employee : ${employees}" th:object="${employee}" class="employee">
+						<td class="center"><img th:if="*{details} != null" th:src="'/' + *{details.image}" class="employeeImage"></td>
 						<td class="center no"></td>
 						<td class="center" th:text="*{username}"></td>
 						<td class="center" th:text="*{department.name}"></td>

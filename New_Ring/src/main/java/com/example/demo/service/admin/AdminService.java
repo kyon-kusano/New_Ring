@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dto.EmployeeRequest;
 import com.example.demo.dto.EmployeeUpdateRequest;
 import com.example.demo.dto.PasswordRequest;
+import com.example.demo.model.entity.Details;
 import com.example.demo.model.entity.Employee;
 import com.example.demo.service.user.UserService;
 
@@ -31,6 +32,7 @@ public class AdminService extends UserService {
 		employee.setTelephone_Number(employeeRequest.getTelephone_Number());
 		employee.setAddress(employeeRequest.getAddress());
 		employee.setJoin_Date(employeeRequest.getJoin_Date());
+		employee.setDetails(new Details("images/nonImage.png", ""));
 		if (employeeRequest.isAuthority())
 			employee.setAdmin(true);
 		employee.setUpdated_at(now);

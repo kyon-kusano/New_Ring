@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 import com.example.demo.service.base.BaseService;
 
@@ -47,7 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			baseService.createDepartment("インターン");
 			baseService.registerAdmin("admin", "secret", "admin@localhost", new Date(), "男",
 					baseService.findDepartment(2), "xxx-xxxx-xxxx",
-					baseService.createAddress("751-0832", "山口県下関市生野町", "一丁目4番40号"), new Date(), null, null);
+					baseService.createAddress("751-0832", "山口県下関市生野町", "一丁目4番40号"),
+					baseService.createDetails("images/nonImage.png", ""), new Date(), null, null);
 
 		}
 
@@ -62,6 +65,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public MultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
 	}
 
 }

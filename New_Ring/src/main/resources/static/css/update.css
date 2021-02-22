@@ -1,20 +1,21 @@
 .fieldError {
-border:1.5px solid;
-border-color:#FE2E64;
-background-color:#F6CEE3;
+	border: 1.5px solid;
+	border-color: #FE2E64;
+	background-color: #F6CEE3;
 }
 
-
 main {
-	margin: 0 auto;
-	min-height: calc(100vh - 80px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	min-height: calc(100vh - 60px);
 	color: #8B4513;
 	background-color: #FFAD90;
-	color: #8B4513;
 }
 
 main h1 {
-	padding: 30px 0px 10px 250px;
+	padding: 30px 0 10px 0;
 }
 
 main h1 .page-tytle {
@@ -22,17 +23,12 @@ main h1 .page-tytle {
 	border-width: 2px;
 }
 
-main form {
-	margin: 0 auto;
-	padding: 30px 0;
-	border-radius: 10px;
+main form  {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
-
-main form table {
-	margin: 0 auto;
-	border-radius: 10px;
-}
-
 main form table tr {
 	height: 40px;
 }
@@ -49,6 +45,13 @@ main form table tr td {
 
 main form table tr td input:not(.radio) {
 	width: 500px;
+}
+.employeeImage {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	border-radius:100%;
+	border: 1px solid darkgray;
 }
 
 main .button_area {

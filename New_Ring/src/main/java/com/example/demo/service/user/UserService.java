@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.EmployeeUpdateRequest;
 import com.example.demo.dto.PasswordRequest;
+import com.example.demo.model.entity.Details;
 import com.example.demo.model.entity.Employee;
 import com.example.demo.service.base.BaseService;
 
@@ -41,6 +42,15 @@ public class UserService extends BaseService {
 		Employee employee = findById(id);
 		employee.setPassword(passwordEncoder.encode(passwordRequest.getPassword()));
 		employee.setUpdated_at(new Date());
+		employeeRepository.save(employee);
+	}
+
+	public void updateDetails(Long id, String image, String comment) {
+		Employee employee = findById(id);
+		Details details = findByDetails(id);
+		details.setImage(image);
+		details.setComment(comment);
+		employee.setDetails(details);
 		employeeRepository.save(employee);
 	}
 
