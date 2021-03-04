@@ -1,13 +1,13 @@
 package com.example.demo.model.validation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
+import com.example.demo.model.entity.Employee;
+import com.example.demo.service.base.BaseService;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.demo.model.entity.Employee;
-import com.example.demo.service.base.BaseService;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import java.util.Objects;
 
 public class UnusedValidator implements ConstraintValidator<Unused, Object> {
 
@@ -45,7 +45,7 @@ public class UnusedValidator implements ConstraintValidator<Unused, Object> {
 
 			}
 		} else {
-			if (employee == null || emailString.equals(requestEmailString)) {
+			if (employee == null || Objects.requireNonNull(emailString).equals(requestEmailString)) {
 				return true;
 			} else {
 				context.buildConstraintViolationWithTemplate(message).addPropertyNode(email).addConstraintViolation();

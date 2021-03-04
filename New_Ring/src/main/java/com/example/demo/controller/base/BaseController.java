@@ -1,189 +1,197 @@
 package com.example.demo.controller.base;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.bean.selectBean;
+import com.example.demo.dto.DetailsRequest;
+import com.example.demo.dto.EmployeeUpdateRequest;
+import com.example.demo.dto.PasswordRequest;
+import com.example.demo.model.entity.Department;
+import com.example.demo.model.entity.Employee;
+import com.example.demo.model.entity.ProgrammingLanguage;
+import com.example.demo.service.user.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.demo.bean.selectBean;
-import com.example.demo.dto.Details;
-import com.example.demo.dto.EmployeeUpdateRequest;
-import com.example.demo.dto.PasswordRequest;
-import com.example.demo.model.entity.Department;
-import com.example.demo.model.entity.Employee;
-import com.example.demo.service.user.UserService;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class BaseController extends selectBean {
 
-	@Autowired
-	UserService userService;
+    final
+    UserService userService;
 
-	@RequestMapping("/")
-	public String index() {
-		return "redirect:/top";
-	}
+    public BaseController(UserService userService) {
+        this.userService = userService;
+    }
 
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
+    @RequestMapping("/")
+    public String index() {
+        return "redirect:/top";
+    }
 
-	@PostMapping("/login")
-	public String loginPost() {
-		return "redirect:/login-error";
-	}
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
-	@GetMapping("/login-error")
-	public String loginError(Model model) {
-		model.addAttribute("loginError", true);
-		return "login";
-	}
+    @PostMapping("/login")
+    public String loginPost() {
+        return "redirect:/login-error";
+    }
 
-	/** トップページ **/
-	@GetMapping("/top")
-	public String printUser(Model model) {
-		Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Employee employee = userService.findById(loggedEmployee.getId());
-		model.addAttribute("details", new Details());
-		model.addAttribute("employee", employee);
-		return "employee";
-	}
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
+    }
 
-	/** ログインユーザ 情報変更画面 **/
-	@GetMapping("/edit/{id}")
-	public String myEdit(Model model, Model stringModel) {
-		Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    /**
+     * トップページ
+     **/
+    @GetMapping("/top")
+    public String printUser(Model model) {
+        Employee loggedEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Employee employee = userService.findById(loggedEmployee.getId());
+        model.addAttribute("details", new DetailsRequest());
+        model.addAttribute("employee", employee);
+        return "employee";
+    }
 
-		Employee employee = userService.findById(loggedEmployee.getId());
-		List<Department> departments = userService.findAllDepartments();
-		stringModel.addAttribute("departments", departments);
-		stringModel.addAttribute("sexes", getSex);
-		model.addAttribute("employeeUpdateRequest", employee);
-		return "update_form";
-	}
+    /**
+     * ログインユーザ 情報変更画面
+     **/
+    @GetMapping("/edit/{id}")
+    public String myEdit(Model model, Model stringModel, @PathVariable Long id) {
+        Employee employee = userService.findById(id);
+        getSelect(stringModel);
+        model.addAttribute("employeeUpdateRequest", employee);
+        return "update_form";
+    }
 
-	/**
-	 * ログインユーザ 編集処理
-	 **/
-	@PostMapping("/edit/{id}")
-	public String Update(@Validated @ModelAttribute EmployeeUpdateRequest employeeUpdateRequest, BindingResult result,
-			Model model, Model stringModel) {
+    /**
+     * ログインユーザ 編集処理
+     **/
+    @PostMapping("/edit/{id}")
+    public String Update(@Validated @ModelAttribute EmployeeUpdateRequest employeeUpdateRequest, BindingResult result,
+                         Model model, Model stringModel) {
 
-		if (result.hasErrors()) {
+        if (result.hasErrors()) {
 
-			List<Department> departments = userService.findAllDepartments();
-			stringModel.addAttribute("departments", departments);
-			stringModel.addAttribute("sexes", getSex);
-			model.addAttribute("requestDepartment", employeeUpdateRequest.getDepartment());
-			model.addAttribute("requestSex", employeeUpdateRequest.getSex());
-			model.addAttribute("requestAuthority", employeeUpdateRequest.isAuthority());
+            getSelect(stringModel);
+            model.addAttribute("requestDepartment", employeeUpdateRequest.getDepartment());
+            model.addAttribute("requestSex", employeeUpdateRequest.getSex());
+            model.addAttribute("requestAuthority", employeeUpdateRequest.isAuthority());
 
-			return "update_form";
-		}
+            return "update_form";
+        }
 
-		userService.myUpdate(employeeUpdateRequest);
+        userService.myUpdate(employeeUpdateRequest);
 
-		return "redirect:/top";
-	}
+        return "redirect:/top";
+    }
 
-	/**
-	 * パスワード変更画面
-	 */
-	@GetMapping("/password")
-	public String updatePass() {
-		return "password_form";
-	}
+    /**
+     * パスワード変更画面
+     */
+    @GetMapping("/password")
+    public String updatePass() {
+        return "password_form";
+    }
 
-	/**
-	 * パスワード変更
-	 */
-	@PostMapping("/password")
-	public String topupdate(@Validated @ModelAttribute PasswordRequest passwordRequest, BindingResult result,
-			Model model) {
+    /**
+     * パスワード変更
+     */
+    @PostMapping("/password")
+    public String topupdate(@Validated @ModelAttribute PasswordRequest passwordRequest, BindingResult result,
+                            Model model) {
 
-		if (result.hasErrors()) {
-			List<String> errorList = new ArrayList<String>();
-			for (ObjectError error : result.getAllErrors()) {
-				errorList.add(error.getDefaultMessage());
-			}
-			model.addAttribute("validationError", errorList);
-			return "password_form";
-		}
-		userService.updatePassword(passwordRequest);
-		return "redirect:/top";
-	}
+        if (result.hasErrors()) {
+            List<String> errorList = new ArrayList<>();
+            for (ObjectError error : result.getAllErrors()) {
+                errorList.add(error.getDefaultMessage());
+            }
+            model.addAttribute("validationError", errorList);
+            return "password_form";
+        }
+        userService.updatePassword(passwordRequest);
+        return "redirect:/top";
+    }
 
-	@GetMapping("/edit/details/{id}")
-	public String myDetailsEdit(@PathVariable Long id, Model model) {
-		Employee employee = userService.findById(id);
-		model.addAttribute("details", new Details());
-		model.addAttribute("employee", employee);
-		return "details_update_form";
-	}
+    @GetMapping("/edit/details/{id}")
+    public String myDetailsEdit(@PathVariable Long id, Model model, Model stringModel) {
+        Employee employee = userService.findById(id);
+        List<ProgrammingLanguage> programmingLanguages = userService.findAllProgrammingLanguage();
 
-	@PostMapping("/edit/details/{id}")
-	public Object upload(Details details, @PathVariable Long id, RedirectAttributes redirectAttributes) {
-		if (!details.getMultipartFile().isEmpty()) {
-			String extension = "";
-			String filePath = "images/employee/";
+        stringModel.addAttribute("programmingLanguages", programmingLanguages);
+        model.addAttribute("details", new DetailsRequest());
+        model.addAttribute("employee", employee);
+        return "details_update_form";
+    }
 
-			Employee employee = userService.findById(id);
-			String username = employee.getUsername();
-			String comment = details.getComment();
+    @PostMapping("/edit/details/{id}")
+    public Object upload(DetailsRequest details, @PathVariable Long id, RedirectAttributes redirectAttributes) {
+        if (!details.getMultipartFile().isEmpty()) {
+            String filePath = "images/employee/";
 
-			File uploadDir = mkdirs(filePath, username);
-			uploadDir = mkdirs(uploadDir.toString(), "icon");
+            Employee employee = userService.findById(id);
+            String username = employee.getUsername();
+            String comment = details.getComment();
 
-			File requestFile = new File(details.getMultipartFile().getOriginalFilename());
-			String requestFileName = requestFile.getName();
-			extension = requestFileName.substring(requestFileName.lastIndexOf("."));
-			String renameFileName = username + extension;
+            File uploadDir = mkdirs(filePath, username);
+            uploadDir = mkdirs(uploadDir.toString(), "icon");
 
-			if (employee.getDetails() != null) {
-				String emplyeeImage = employee.getDetails().getImage();
-				File file = new File(emplyeeImage);
-				file.delete();
-			}
+            File requestFile = new File(Objects.requireNonNull(details.getMultipartFile().getOriginalFilename()));
+            String requestFileName = requestFile.getName();
+            String extension = requestFileName.substring(requestFileName.lastIndexOf("."));
+            String renameFileName = username + extension;
 
-			try {
-				byte[] bytes = details.getMultipartFile().getBytes();
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(new File(uploadDir.toString() + "/" + renameFileName)));
-				stream.write(bytes);
-				stream.close();
-				userService.updateDetails(id, uploadDir.toString() + "/" + renameFileName, comment);
-				redirectAttributes.addAttribute("id", id);
-			} catch (Exception e) {
-				return "redirect:/edit/details/{id}";
-			} catch (Throwable t) {
-				return "redirect:/edit/details/{id}";
-			}
-			return "redirect:/top";
-		} else {
-			return "redirect:/edit/details/{id}";
-		}
+            if (employee.getDetails() != null) {
+                String emplyeeImage = employee.getDetails().getImage();
+                File file = new File(emplyeeImage);
+                file.delete();
+            }
 
-	}
+            try {
+                byte[] bytes = details.getMultipartFile().getBytes();
+                try (BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(uploadDir.toString() + "/" + renameFileName))) {
+                    stream.write(bytes);
+                }
 
-	private File mkdirs(String filePath, String profile) {
-		File uploadDir = new File(filePath, profile);
-		uploadDir.mkdirs();
-		return uploadDir;
-	}
+                userService.updateDetails(id, uploadDir.toString() + "/" + renameFileName, comment);
+                userService.updateProgrammingLanguage(id, details.getProgramming_Language_Names());
+                redirectAttributes.addAttribute("id", id);
+            } catch (Throwable e) {
+                return "redirect:/edit/details/{id}";
+            }
+            return "redirect:/top";
+        } else {
+
+            return "redirect:/edit/details/{id}";
+        }
+
+    }
+
+    private File mkdirs(String filePath, String profile) {
+        File uploadDir = new File(filePath, profile);
+        uploadDir.mkdirs();
+        return uploadDir;
+    }
+
+    private void getSelect(Model stringModel) {
+
+        List<Department> departments = userService.findAllDepartments();
+        stringModel.addAttribute("departments", departments);
+        stringModel.addAttribute("sexes", getSex);
+    }
 }

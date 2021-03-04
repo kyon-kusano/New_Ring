@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<th:block th:insert="fragments/base :: head"></th:block>
-<link th:href="@{/css/update.css}" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <th:block th:insert="fragments/base :: head"></th:block>
+    <link th:href="@{/css/update.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<th:block th:insert="fragments/header :: header"></th:block>
-	<main>
-		<h1>
-			<span class="page-tytle">職員情報の変更</span>
-		</h1>
-		<form th:action="@{/edit/details/{id}(id=${employee.id})}" enctype="multipart/form-data" method="post" th:object="${details}">
-			<label for="image"><img th:src="'/' + ${employee.details.image}" class="employeeImage"></label>
-			<input style="display: none;" id="image" type="file" th:field="*{multipartFile}">
-			<textarea th:field="*{comment}"></textarea>
-			<div class="button_area">
-				<input type="submit" value="変更" class="submit-btn link">
-			</div>
-		</form>
-	</main>
+<th:block th:insert="fragments/header :: header"></th:block>
+<main>
+    <h1>
+        <span class="page-tytle">職員情報の変更</span>
+    </h1>
+    <form th:action="@{/edit/details/{id}(id=${employee.id})}" enctype="multipart/form-data" method="post"
+          th:object="${details}">
+        <label for="image"><img th:src="'/' + ${employee.details.image}" class="employeeImage"></label>
+        <input style="display: none;" id="image" type="file" th:field="*{multipartFile}">
+        <textarea th:field="*{comment}"></textarea>
+        <span th:each="programmingLanguage : ${programmingLanguages}">
+							<input type="checkbox" name="programming_Language_Names"
+                                   th:value="${programmingLanguage.name}" th:id="${programmingLanguage.id}"
+                                   style="width: 20px;">
+							<label th:for="${programmingLanguage.id}" th:text="${programmingLanguage.name}"></label>
+						</span>
+        <div class="button_area">
+            <input type="submit" value="変更" class="submit-btn link">
+        </div>
+    </form>
+</main>
 </body>
 </html>

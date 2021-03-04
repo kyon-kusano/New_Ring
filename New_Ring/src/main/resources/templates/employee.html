@@ -61,6 +61,10 @@
 					<th>コメント</th>
 					<td th:if="*{details} != null" th:text="*{details.comment}"></td>
 				</tr>
+				<tr>
+					<th>言語</th>
+					<td th:each="test : *{programming_Language}" th:object="${test}" th:text="*{name}"></td>
+				</tr>
 			</table>
 			<div class="button_area">
 				<a th:href="@{/edit/{id}(id=*{id})}" class="link">編集</a>

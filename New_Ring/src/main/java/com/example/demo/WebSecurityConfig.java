@@ -41,15 +41,38 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(baseService).passwordEncoder(passwordEncoder());
 
 		if (baseService.findAllList().isEmpty()) {
+
 			baseService.createDepartment("未選択");
 			baseService.createDepartment("人事部");
 			baseService.createDepartment("IT事業部");
 			baseService.createDepartment("営業部");
 			baseService.createDepartment("研修生");
 			baseService.createDepartment("インターン");
+
+			baseService.createProgrammingLanguage("Java");
+			baseService.createProgrammingLanguage("PHP");
+			baseService.createProgrammingLanguage("Python");
+			baseService.createProgrammingLanguage("Ruby");
+			baseService.createProgrammingLanguage("HTML");
+			baseService.createProgrammingLanguage("CSS");
+			baseService.createProgrammingLanguage("JavaScript");
+			baseService.createProgrammingLanguage("SQL");
+			baseService.createProgrammingLanguage("VBA");
+			baseService.createProgrammingLanguage("Swift");
+			baseService.createProgrammingLanguage("Kotlin");
+			baseService.createProgrammingLanguage("GO");
+			baseService.createProgrammingLanguage("C#");
+			baseService.createProgrammingLanguage("C/C++");
+			baseService.createProgrammingLanguage("Visual Basic");
+			baseService.createProgrammingLanguage("その他");
+
 			baseService.registerAdmin("admin", "secret", "admin@localhost", new Date(), "男",
-					baseService.findDepartment(2), "xxx-xxxx-xxxx",
-					baseService.createAddress("751-0832", "山口県下関市生野町", "一丁目4番40号"),
+					baseService.findDepartment(2), baseService.findProgrammingLanguage("Java", "HTML", "CSS"),
+					"xxx-xxxx-xxxx", baseService.createAddress("751-0832", "山口県下関市生野町", "一丁目4番40号"),
+					baseService.createDetails("images/nonImage.png", ""), new Date(), null, null);
+			baseService.registerAdmin2("adsmin", "secret", "admins@localhost", new Date(), "男",
+					baseService.findDepartment(1), baseService.findProgrammingLanguage("Java", "HTML", "CSS"),
+					"xxx-xxxx-xxxx", baseService.createAddress("751-0832", "山口県下関市生野町", "一丁目4番40号"),
 					baseService.createDetails("images/nonImage.png", ""), new Date(), null, null);
 
 		}
@@ -57,7 +80,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/css/**", "/images/**", "/js/**");
 	}

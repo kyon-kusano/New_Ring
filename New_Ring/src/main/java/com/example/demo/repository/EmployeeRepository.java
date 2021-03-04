@@ -1,15 +1,16 @@
 package com.example.demo.repository;
 
-import java.util.List;
-
+import com.example.demo.model.entity.Employee;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.model.entity.Employee;
+import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-	public Employee findByEmail(String email);
+    Employee findByEmail(String email);
 
-	public List<Employee> findAll();
+    Optional<Employee> findById(@NotNull Long id);
+
 
 }
